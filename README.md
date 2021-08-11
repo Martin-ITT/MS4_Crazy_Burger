@@ -1,104 +1,65 @@
-![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
 
-Welcome Martin-ITT,
+![Crazy Burger](https:/pics-link-here "Crazy Burger")
 
-This is the Code Institute student template for Gitpod. We have preinstalled all of the tools you need to get started. You can safely delete this README.md file, or change it for your own project. Please do read it at least once, though! It contains some important information about Gitpod and the extensions we use. The last update to this file was: **July 2, 2021**
+<span id="index"></span>
+## Index
+ <a href="#project">Project Idea 💁</a>
+1. <a href="#ux">UX 👌</a>
+1. <a href="#features">Features 🎮</a>
+1. <a href="#technologies">Technologies Used 👉</a>
+1. <a href="#testing">Testing 🔧</a>
+1. <a href="#deployment">Deployment 💥</a>
+1. <a href="#credits">Credits 👋</a>
 
-## Gitpod Reminders
 
-To run a frontend (HTML, CSS, Javascript only) application in Gitpod, in the terminal, type:
 
-`python3 -m http.server`
+<span id="project"></span>
+# Crazy Burger
+## [Code Institute](https://codeinstitute.net)
+### Full Stack Web Development Course
+### Milestone Project 4 - Full Stack Framework with Django
+[live website here](https://deployed-website)
+--------------------------------------
 
-A blue button should appear to click: _Make Public_,
+Fourth Milestone project is focused on creating larger and complex web applications using Django to demonstrate the ability of solving real-world scenarios. Django is powerfull framework for rapid web development emphasizing reusability and use of its components. It contains number of applications, including authentication system, CRUD operations support and administrative interface including security features. 
+Most of my professional life I've spent in restaurants so I decided to create web application for take-away restaurant Crazy-Burger. This website will provide all convenient features as browse menu, place an order with payment, create user account for easier ordering or contact restaurant over contact form.
 
-Another blue button should appear to click: _Open Browser_.
+<span id="ux"></span>
+# 1. UX 👌
+## 1.1 Strategy
 
-To run a backend Python file, type `python3 app.py`, if your Python file is named `app.py` of course.
+The goal is to promote local restaurant by creating professional website. Online food ordering services can be quiet expensive for small businesses. Customers bill can easily drop by 20% if they will order directly over the restaurant webpage. However, the webpage must be also attractive, reliable, accesible and easy to use in order to become a success. User stories will help us identify all critical aspects.
 
-A blue button should appear to click: _Make Public_,
+### User stories
+### Users
 
-Another blue button should appear to click: _Open Browser_.
 
-In Gitpod you have superuser security privileges by default. Therefore you do not need to use the `sudo` (superuser do) command in the bash terminal in any of the lessons.
+| User story | As a/an | I want to be able to | So that I can |
+| ------------- | :--------| :--------------------| :------------|
+| | | Viewing and navigation |
+| 1 | Shopper | Browse the menu | Compare and order food I want |
+| 2 | Shopper | View meal details | See the image, price, alergens, rating |
+| 3 | Shopper | See special offers | Save money |
+| 4 | Shopper | See my previous orders | Order easily and control the budget |
+| 5 | Shopper | Add special note to order | State important information about my order |
+| Rgistration and User accounts |
+| 6 | User | Create an account | Control my deteils |
+| 7 | User | Login or logout | Use account funcionality |
+| 8 | User | Recover forgotten password | Get my account back |
+| 9 | User | See my personalized profile | See history of my orders and store payment info |
+| Sorting and Searching |
+| 10 | Shopper | Sort the list of available meals | Identify best rated, cheapest |
+| 11 | Shopper | Sort a special offers | Identify best and cheapest products in certain category |
+| 12 | Shopper | Search for a meal by name | Find particular food |
+| Purchasing and Checkout |
+| 13 | Shopper | Easily add meal to basket | So I only add what I want |
+| 14 | Shopper | Edit basket | Change items if I change my mind |
+| 15 | Shopper | Have my details pre-filled | Easily checkout |
+| 16 | Shopper | Get an email confirmation for my order | To double check my order |
+| Administration |
+| 16 | Owner | Receive feedback | See if customer is not happy |
+| 17 | Owner | Add new meal | Inform the customer about new meal |
+| 18 | Owner | Edit meal | Change the price when needed |
+| 19 | Owner | Delete meal | When product discontinued |
 
-To log into the Heroku toolbelt CLI:
-
-1. Log in to your Heroku account and go to *Account Settings* in the menu under your avatar.
-2. Scroll down to the *API Key* and click *Reveal*
-3. Copy the key
-4. In Gitpod, from the terminal, run `heroku_config`
-5. Paste in your API key when asked
-
-You can now use the `heroku` CLI program - try running `heroku apps` to confirm it works. This API key is unique and private to you so do not share it. If you accidentally make it public then you can create a new one with _Regenerate API Key_.
-
-------
-
-## Release History
-
-We continually tweak and adjust this template to help give you the best experience. Here is the version history:
-
-**July 19 2021:** Remove `font_fix` script now that the terminal font issue is fixed.
-
-**July 2 2021:** Remove extensions that are not available in Open VSX.
-
-**June 30 2021:** Combined the P4 and P5 templates into one file, added the uptime script. See the FAQ at the end of this file.
-
-**June 10 2021:** Added: `font_fix` script and alias to fix the Terminal font issue
-
-**May 10 2021:** Added `heroku_config` script to allow Heroku API key to be stored as an environment variable.
-
-**April 7 2021:** Upgraded the template for VS Code instead of Theia.
-
-**October 21 2020:** Versions of the HTMLHint, Prettier, Bootstrap4 CDN and Auto Close extensions updated. The Python extension needs to stay the same version for now.
-
-**October 08 2020:** Additional large Gitpod files (`core.mongo*` and `core.python*`) are now hidden in the Explorer, and have been added to the `.gitignore` by default.
-
-**September 22 2020:** Gitpod occasionally creates large `core.Microsoft` files. These are now hidden in the Explorer. A `.gitignore` file has been created to make sure these files will not be committed, along with other common files.
-
-**April 16 2020:** The template now automatically installs MySQL instead of relying on the Gitpod MySQL image. The message about a Python linter not being installed has been dealt with, and the set-up files are now hidden in the Gitpod file explorer.
-
-**April 13 2020:** Added the _Prettier_ code beautifier extension instead of the code formatter built-in to Gitpod.
-
-**February 2020:** The initialisation files now _do not_ auto-delete. They will remain in your project. You can safely ignore them. They just make sure that your workspace is configured correctly each time you open it. It will also prevent the Gitpod configuration popup from appearing.
-
-**December 2019:** Added Eventyret's Bootstrap 4 extension. Type `!bscdn` in a HTML file to add the Bootstrap boilerplate. Check out the <a href="https://github.com/Eventyret/vscode-bcdn" target="_blank">README.md file at the official repo</a> for more options.
-
-------
-
-## FAQ about the uptime script
-
-**Why have you added this script?**
-
-It will help us to calculate how many running workspaces there are at any one time, which greatly helps us with cost and capacity planning. It will help us decide on the future direction of our cloud-based IDE strategy.
-
-**How will this affect me?**
-
-For everyday usage of Gitpod, it doesn’t have any effect at all. The script only captures the following data:
-
-- An ID that is randomly generated each time the workspace is started.
-- The current date and time
-- The workspace status of “started” or “running”, which is sent every 5 minutes.
-
-It is not possible for us or anyone else to trace the random ID back to an individual, and no personal data is being captured. It will not slow down the workspace or affect your work.
-
-**So….?**
-
-We want to tell you this so that we are being completely transparent about the data we collect and what we do with it.
-
-**Can I opt out?**
-
-Yes, you can. Since no personally identifiable information is being captured, we'd appreciate it if you let the script run; however if you are unhappy with the idea, simply run the following commands from the terminal window after creating the workspace, and this will remove the uptime script:
-
-```
-pkill uptime.sh
-rm .vscode/uptime.sh
-```
-
-**Anything more?**
-
-Yes! We'd strongly encourage you to look at the source code of the `uptime.sh` file so that you know what it's doing. As future software developers, it will be great practice to see how these shell scripts work.
-
----
-
-Happy coding!
+## 1.2 Scope 
