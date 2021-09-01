@@ -16,14 +16,23 @@
     {% block core_css %}
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&family=Titillium+Web:wght@600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap" rel="stylesheet">
     {% endblock %}
 
     {% block extra_css %}
     {% endblock %}
 
     {% block core_js %}
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" integrity="sha384-eMNCOe7tC1doHpGoWe/6oMVemdAVTMs2xqW4mwXrXsW0L84Iytr2wi5v2QjrP/xp" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js" integrity="sha384-cn7l7gDp0eyniUwwAZgrzD06kc/tftFf19TOAs2zVinnD/C7E91j9yyk5//jjpt/" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/cdc5be118f.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
     {% endblock %}
 
     {% block extra_js %}
@@ -32,20 +41,80 @@
     <title>Crazy burger {% block extra_title%}{% endblock %}</title>
   </head>
   <body>
-      <header class="container-fluid fixed-top"></header>
-
-      {% if messages %}
-      <div class="message-container"></div>
-      {% endif %}
-
-      {% block page_header %}
-      {% endblock %}
-
-      {% block content %}
-      {% endblock %}
-
-      {% block postload_js  %}
-      {% endblock %}
-
+    <header class="container-fluid fixed-top">
+      <div id="topnav" class="row bg-white pt-lg-2 d-none d-lg-flex">
+          <div class="col-12 col-lg-4 my-auto py-1 py-lg-0 text-center text-lg-left">
+              <a href="{% url 'home' %}" class="nav-link main-logo-link">
+                  <h2 class="logo-font text-danger my-0">Crazy<strong>Burger</strong></h2>
+              </a>
+          </div>
+          <div class="col-12 col-lg-4 my-auto py-1 py-lg-0">
+              <form method="GET" action="">
+                  <div class="input-group w-100">
+                      <input class="form-control border border-black rounded-0" type="text" name="q" placeholder="Search our menu">
+                      <div class="input-group-append">
+                          <button class="form-control btn btn-black border border-black rounded-0" type="submit">
+                              <span class="icon">
+                                  <i class="fas fa-search"></i>
+                              </span>
+                          </button>
+                      </div>
+                  </div>
+              </form>
+          </div>
+          <div class="col-12 col-lg-4 my-auto py-1 py-lg-0">
+              <ul class="list-inline list-unstyled text-center text-lg-right my-0">
+                  <li class="list-inline-item dropdown">
+                      <a class="text-black nav-link" href="#" id="user-options" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <div class="text-center">
+                              <div><i class="fas fa-user fa-lg"></i></div>
+                              <p class="my-0">My Account</p>
+                          </div>
+                      </a>
+                      <div class="dropdown-menu border-0" aria-labelledby="user-options">
+                          {% if request.user.is_authenticated %}
+                              {% if request.user.is_superuser %}
+                                  <a href="" class="dropdown-item">Product Management</a>
+                              {% endif %}
+                              <a href="" class="dropdown-item">My Profile</a>
+                              <a href="{% url 'account_logout' %}" class="dropdown-item">Logout</a>
+                          {% else %}
+                              <a href="{% url 'account_signup' %}" class="dropdown-item">Register</a>
+                              <a href="{% url 'account_login' %}" class="dropdown-item">Login</a>
+                          {% endif %}
+                      </div>
+                  </li>
+                  <li class="list-inline-item">
+                      <a class="{% if grand_total %}text-info font-weight-bold{% else %}text-black{% endif %} nav-link" href="">
+                          <div class="text-center">
+                              <div><i class="fas fa-shopping-bag fa-lg"></i></div>
+                              <p class="my-0">
+                                  {% if grand_total %}
+                                      ${{ grand_total|floatformat:2 }}
+                                  {% else %}
+                                      $0.00
+                                  {% endif %}
+                              </p>
+                          </div>
+                      </a>
+                  </li>
+              </ul>
+          </div>
+      </div>
+  </header>
+  
+    {% if messages %}
+    <div class="message-container"></div>
+    {% endif %}
+  
+    {% block page_header %}
+    {% endblock %}
+  
+    {% block content %}
+    {% endblock %}
+  
+    {% block postload_js %}
+    {% endblock %}
+  
   </body>
 </html>
