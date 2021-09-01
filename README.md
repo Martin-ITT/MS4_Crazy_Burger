@@ -35,21 +35,21 @@ The goal is to promote local restaurant by creating professional website. Online
 
 
 | User story | As a/an | I want to be able to | So that I can |
-| ------------- | :--------| :--------------------| :------------|
-| | | Viewing and navigation |
+| -----------: | :--------| :--------------------| :------------|
+| Viewing and navigation |
 | 1 | Shopper | Browse the menu | Compare and order food I want |
-| 2 | Shopper | View meal details | See the image, price, alergens, rating |
+| 2 | Shopper | View meal details | See the image, price, alergens |
 | 3 | Shopper | See special offers | Save money |
 | 4 | Shopper | See my previous orders | Order easily and control the budget |
 | 5 | Shopper | Add special note to order | State important information about my order |
 | Rgistration and User accounts |
 | 6 | User | Create an account | Control my deteils |
-| 7 | User | Login or logout | Use account funcionality |
+| 7 | User | Login or logout | Use account funcionality | *social media account
 | 8 | User | Recover forgotten password | Get my account back |
 | 9 | User | See my personalized profile | See history of my orders and store payment info |
 | Sorting and Searching |
-| 10 | Shopper | Sort the list of available meals | Identify best rated, cheapest |
-| 11 | Shopper | Sort a special offers | Identify best and cheapest products in certain category |
+| 10 | Shopper | Sort the list of available meals | Identify newest, cheapest |
+| 11 | Shopper | Sort a special offers | Identify newest and cheapest products in certain category |
 | 12 | Shopper | Search for a meal by name | Find particular food |
 | Purchasing and Checkout |
 | 13 | Shopper | Easily add meal to basket | So I only add what I want |
