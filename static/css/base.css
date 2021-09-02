@@ -7,8 +7,8 @@ body {
     background-size: cover;
     height: calc(100vh - 164px);
     color: #555;
-    font-family: 'Indie Flower', cursive;
-    /* font-family: 'Titillium Web', sans-serif; */
+    /* font-family: 'Indie Flower', cursive; */
+    font-family: 'Titillium Web', sans-serif;
 }
 
 /* from Bulma */
