@@ -63,3 +63,12 @@ The goal is to promote local restaurant by creating professional website. Online
 | 19 | Owner | Delete meal | When product discontinued |
 
 ## 1.2 Scope 
+
+
+
+Hero image was downloaded from pexels.com - Adrian Dorobantu
+    https://www.pexels.com/photo/cheeseburger-on-table-2089717/
+Food pictures were downloaded from kaggle.com - K Scott Mader
+    https://www.kaggle.com/kmader/food41?select=images
+Logo was created using Adobe Spark logo maker
+    https://www.adobe.com/express/create/logo
