@@ -65,6 +65,8 @@ The goal is to promote local restaurant by creating professional website. Online
 ## 1.2 Scope 
 
 
+Image were edited using Gimp
+
 
 Hero image was downloaded from pexels.com - Adrian Dorobantu
     https://www.pexels.com/photo/cheeseburger-on-table-2089717/
