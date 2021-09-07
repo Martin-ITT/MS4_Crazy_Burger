@@ -1,5 +1,6 @@
 <div class="collapse navbar-collapse" id="main-nav">
     <ul class="navbar-nav w-auto mx-auto">
+        <!--
         <li class="nav-item dropdown">
             <a class="logo-font font-weight-bold nav-link text-black mr-5" href="#" id="all-products-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Menu
@@ -8,6 +9,19 @@
                 <a href="" class="dropdown-item">By Price</a>
                 <a href="" class="dropdown-item">By Category</a>
                 <a href="" class="dropdown-item ">Newest</a>
+                <a href="" class="dropdown-item">All Products</a>
+            </div>
+        </li>
+        -->
+        <li class="nav-item dropdown">
+            <a class="logo-font font-weight-bold nav-link text-black mr-5" href="#" id="all-products-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Menu
+            </a>
+            <div class="dropdown-menu border-0" aria-labelledby="all-products-link">
+                <a href="{% url 'products' %}?category=burgers" class="dropdown-item">Burgers</a>
+                <a href="{% url 'products' %}?category=pizza" class="dropdown-item">Pizza</a>
+                <a href="{% url 'products' %}?category=loaded_chips" class="dropdown-item ">Chips</a>
+                <a href="{% url 'products' %}?category=salads,creoles,kebebs,wraps,baguettes,china_town,fish,sides" class="dropdown-item ">Other dishes</a>
                 <!-- <a href="" class="dropdown-item">All Products</a> -->
             </div>
         </li>
@@ -17,10 +31,10 @@
                 Meals & Deals
             </a>
             <div class="dropdown-menu border-0" aria-labelledby="meals-deals-link">
-                <a href="" class="dropdown-item">Kids Meals</a>
-                <a href="" class="dropdown-item">Regular Meals</a>
-                <a href="" class="dropdown-item">Deals</a>
-                <a href="" class="dropdown-item">Daily Offers</a>
+                <a href="{% url 'products' %}?category=kids_meals" class="dropdown-item">Kids Meals</a>
+                <a href="{% url 'products' %}?category=meals" class="dropdown-item">Regular Meals</a>
+                <a href="{% url 'products' %}?category=deals" class="dropdown-item">Deals</a>
+                <a href="{% url 'products' %}?category=daily_offers" class="dropdown-item">Daily Offers</a>
             </div>
         </li>
 
@@ -29,13 +43,13 @@
                 Deserts
             </a>
             <div class="dropdown-menu border-0" aria-labelledby="deserts-link">
-                <a href="" class="dropdown-item">Milkshakes</a>
-                <a href="" class="dropdown-item">Crepes</a>
-                <a href="" class="dropdown-item">Ice Creams</a>
-                <a href="" class="dropdown-item">Biscuits & Donust</a>
+                <a href="{% url 'products' %}?category=milkshakes" class="dropdown-item">Milkshakes</a>
+                <a href="{% url 'products' %}?category=crepes" class="dropdown-item">Crêpes</a>
+                <a href="{% url 'products' %}?category=ice_cream" class="dropdown-item">Ice Creams</a>
+                <a href="{% url 'products' %}?category=other_deserts" class="dropdown-item">Cookies & Donuts</a>
             </div>
         </li>
-
+        <!--
         <li class="nav-item dropdown">
             <a class="logo-font font-weight-bold nav-link text-black" href="#" id="specials-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Our Specials
@@ -49,5 +63,6 @@
                 <a href="" class="dropdown-item">All Specials</a>
             </div>
         </li>
+    -->
     </ul>
 </div>
