@@ -71,6 +71,19 @@ body {
     z-index: -1;
 }
 
+/* back to top button
+.btt-button {
+    height: 42px;
+    width: 42px;
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+}
+
+.btt-link {
+    cursor: pointer;
+}
+*/
 a.category-badge > span.badge:hover {
     background: #212529 !important; /* BS dark class */
     color: #fff !important;
