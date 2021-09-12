@@ -44,9 +44,17 @@
                     {% if product.rating %}
                         <small class="text-muted"><i class="fas fa-star mr-1"></i>{{ product.rating }} / 5</small>
                     {% else %}
+                    <!--
                         <small class="text-muted">No Rating</small>
+                    -->
                     {% endif %}
                     <p class="mt-3">{{ product.description }}</p>
+                    <p class="mt-3">Allergens:
+                    {% for allergen in allergens %}
+                    {{ allergen }}, 
+                    {% endfor%}
+                    </p>
+
                     <form class="form" action="{% url 'add_to_bag' product.id %}" method="POST">
                         {% csrf_token %}
                         <div class="form-row">
