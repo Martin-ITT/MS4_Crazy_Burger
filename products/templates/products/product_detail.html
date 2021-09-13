@@ -33,7 +33,7 @@
             <div class="col-12 col-md-6 col-lg-4">
                 <div class="product-details-container mb-5 mt-md-5">
                     <p class="mb-0">{{ product.name }}</p>
-                    <p class="lead mb-0 text-left font-weight-bold">€{{ product.price }}</p>
+                    <p class="lead mb-0 text-left font-weight-bold" id="product-price">€{{ product.price }}</p>
                     {% if product.category %}
                         <p class="small mt-1 mb-0">
                             <a class="text-muted" href="{% url 'products' %}?category={{ product.category.name }}">
@@ -60,6 +60,43 @@
                         <div class="form-row">
                             <!-- input -->
                             <div class="col-12">
+                                <!-- make it meal -->
+                                <p class="mt-3">
+                                    <input type="checkbox" id="id-price-meal" name="id-price-meal" value="meal">
+                                    {% if product.price_meal %}
+                                    <b>Make it meal for {{ product.price_meal }}!
+                                    {% endif %}</b>
+                                </p>
+
+                                <!-- select drink -->
+                                <div id="drink-selection" class="d-none">
+                                    <div class="form-check-inline">
+                                        <label class="form-check-label">
+                                        <input type="radio" class="form-check-input" name="optradio" value="coke" checked>Coke
+                                        </label>
+                                    </div>
+                                    <div class="form-check-inline">
+                                        <label class="form-check-label">
+                                        <input type="radio" class="form-check-input" name="optradio" value="diet">Diet Coke
+                                        </label>
+                                    </div>
+                                    <div class="form-check-inline">
+                                        <label class="form-check-label">
+                                        <input type="radio" class="form-check-input" name="optradio" value="zero">Coke Zero
+                                        </label>
+                                    </div>
+                                    <div class="form-check-inline">
+                                        <label class="form-check-label">
+                                        <input type="radio" class="form-check-input" name="optradio" value="fanta">Fanta
+                                        </label>
+                                    </div>
+                                    <div class="form-check-inline">
+                                        <label class="form-check-label">
+                                        <input type="radio" class="form-check-input" name="optradio" value="sprite">Sprite
+                                        </label>
+                                    </div>
+                                </div>
+
                                 <p class="mt-3"><strong>Quantity:</strong></p>
                                 <div class="form-group w-50">
                                     <div class="input-group">
@@ -84,4 +121,18 @@
             </div>
         </div>
     </div>
+    <script>
+        $(document).ready(function() {
+        
+            $('input:checkbox#id-price-meal').change(function(){
+            if($(this).is(":checked")) {
+                $('div#drink-selection').removeClass("d-none");
+                $('#product-price').text('{{ price_meal }}');
+            } else {
+                $('div#drink-selection').addClass("d-none");
+            }
+        });
+        
+        })
+        </script>
 {% endblock %}
