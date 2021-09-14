@@ -32,7 +32,7 @@
             <!-- second col screen layout-->
             <div class="col-12 col-md-6 col-lg-4">
                 <div class="product-details-container mb-5 mt-md-5">
-                    <p class="mb-0">{{ product.name }}</p>
+                    <p class="mb-0" id="id-product-name">{{ product.name }}</p>
                     <p class="lead mb-0 text-left font-weight-bold" id="product-price">€{{ product.price }}</p>
                     <!-- hidden input for price -->
                     <input class="d-none" type="checkbox" id="id-price" name="id-price" value="{{product.price}}">
@@ -66,7 +66,7 @@
                                 <p class="mt-3">
                                     {% if product.price_meal %}
                                     <input type="checkbox" id="id-price-meal" name="id-price-meal" value="{{product.price_meal}}">
-                                    <b>Make it meal for €{{ product.price_meal }}!
+                                    <b>Make it meal for €{{ price_meal_extra }} extra!
                                     {% endif %}</b>
                                 </p>
 
@@ -98,7 +98,13 @@
                                         </label>
                                     </div>
                                 </div>
-
+                                <!-- milkshakes -->
+                                <p class="mt-3">
+                                    {% if product.category.name == 'milkshakes' %}
+                                    <input type="checkbox" id="id-price-large" name="id-price-large" value="{{ product.price_large }}">
+                                    <b>Go large for €{{ price_large_extra }} extra!
+                                    {% endif %}</b>
+                                </p>
                                 <p class="mt-3"><strong>Quantity:</strong></p>
                                 <div class="form-group w-50">
                                     <div class="input-group">
@@ -131,10 +137,12 @@
                 $('div#drink-selection').removeClass("d-none");
                 var price_meal = parseFloat($('#id-price-meal').val()).toFixed(2);
                 $('#product-price').text("€" + price_meal);
+                $('#id-product-name').append('<span id="add-meal-text"> meal with chips</span>');
             } else {
                 $('div#drink-selection').addClass("d-none");
                 var price = parseFloat($('#id-price').val()).toFixed(2);
                 $('#product-price').text("€" + price);
+                $('#add-meal-text').remove();
             }
         });
         

@@ -71,10 +71,14 @@ def product_detail(request, product_id):
 
     product = get_object_or_404(Product, pk=product_id)
     allergens = product.allergens.all()
+    price_meal_extra = product.price_meal - product.price
+    price_large_extra = product.price_large - product.price
 
     context = {
         'product': product,
         'allergens': allergens,
+        'price_meal_extra': price_meal_extra,
+        'price_large_extra': price_large_extra,
     }
 
     return render(request, 'products/product_detail.html', context)
