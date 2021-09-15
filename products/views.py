@@ -3,7 +3,7 @@ from django.shortcuts import (
 from django.contrib import messages
 from django.db.models import Q
 from django.db.models.functions import Lower
-from .models import Product, Category, Allergen
+from .models import *
 
 # Create your views here.
 
@@ -71,12 +71,14 @@ def product_detail(request, product_id):
 
     product = get_object_or_404(Product, pk=product_id)
     allergens = product.allergens.all()
+    toppings = Topping.objects.all()
     price_meal_extra = product.price_meal - product.price
     price_large_extra = product.price_large - product.price
 
     context = {
         'product': product,
         'allergens': allergens,
+        'toppings': toppings,
         'price_meal_extra': price_meal_extra,
         'price_large_extra': price_large_extra,
     }
