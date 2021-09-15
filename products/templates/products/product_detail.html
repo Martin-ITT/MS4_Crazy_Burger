@@ -65,7 +65,7 @@
                                 <!-- make it meal -->
                                 <p class="mt-3">
                                     {% if product.price_meal %}
-                                    <input type="checkbox" id="id-price-meal" name="id-price-meal" value="{{product.price_meal}}">
+                                    <input type="checkbox" id="id-price-meal" name="id-price-meal" value="{{ product.price_meal }}">
                                     <b>Make it meal for €{{ price_meal_extra }} extra!
                                     {% endif %}</b>
                                 </p>
@@ -101,8 +101,24 @@
                                 <!-- milkshakes -->
                                 <p class="mt-3">
                                     {% if product.category.name == 'milkshakes' %}
+                                    <div id="size-selection">
+                                        <!-- hidden input for price_large -->
+                                        <input class="d-none" type="checkbox" id="id-price-large" name="id-price-large" value="{{ product.price_large }}">
+                                        <div class="form-check">
+                                            <label class="form-check-label">
+                                            <input type="radio" class="form-check-input" name="opt-milkshakes" value="small" checked>Small
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <label class="form-check-label">
+                                            <input type="radio" class="form-check-input" name="opt-milkshakes" value="large">Large only €{{ price_large_extra }} extra!
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <!--
                                     <input type="checkbox" id="id-price-large" name="id-price-large" value="{{ product.price_large }}">
                                     <b>Go large for €{{ price_large_extra }} extra!
+                                    -->
                                     {% endif %}</b>
                                 </p>
                                 <p class="mt-3"><strong>Quantity:</strong></p>
@@ -146,6 +162,19 @@
             }
         });
         
+        $('input[name=opt-milkshakes]').change(function(){
+        var value = $( 'input[name=opt-milkshakes]:checked' ).val();
+        if (value == "large") {
+            var price_large = parseFloat($('#id-price-large').val()).toFixed(2);
+            $('#product-price').text("€" + price_large);
+                $('#id-product-name').append('<span id="add-size-text"> - large</span>');
+        } else {
+            var price = parseFloat($('#id-price').val()).toFixed(2);
+            $('#product-price').text("€" + price);
+            $('#add-size-text').remove();;
+        }
+        });
+
         })
         </script>
 {% endblock %}
