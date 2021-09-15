@@ -70,7 +70,7 @@
                                     {% endif %}</b>
                                 </p>
 
-                                <!-- select drink -->
+                                <!-- select drink with meal -->
                                 <div id="drink-selection" class="d-none">
                                     <div class="form-check-inline">
                                         <label class="form-check-label">
@@ -98,29 +98,51 @@
                                         </label>
                                     </div>
                                 </div>
-                                <!-- milkshakes -->
+
+                                <!-- size selection for products with size except pizzas, and drinks -->
                                 <p class="mt-3">
-                                    {% if product.category.name == 'milkshakes' %}
+                                    {% if product.price_large and product.category.name != 'pizzas' and product.category.name != 'drinks' %}
                                     <div id="size-selection">
                                         <!-- hidden input for price_large -->
                                         <input class="d-none" type="checkbox" id="id-price-large" name="id-price-large" value="{{ product.price_large }}">
                                         <div class="form-check">
                                             <label class="form-check-label">
-                                            <input type="radio" class="form-check-input" name="opt-milkshakes" value="small" checked>Small
+                                            <input type="radio" class="form-check-input" name="opt-small-large-only" value="small" checked>Small
                                             </label>
                                         </div>
                                         <div class="form-check">
                                             <label class="form-check-label">
-                                            <input type="radio" class="form-check-input" name="opt-milkshakes" value="large">Large only €{{ price_large_extra }} extra!
+                                            <input type="radio" class="form-check-input" name="opt-small-large-only" value="large">Large only €{{ price_large_extra }} extra!
                                             </label>
                                         </div>
                                     </div>
-                                    <!--
-                                    <input type="checkbox" id="id-price-large" name="id-price-large" value="{{ product.price_large }}">
-                                    <b>Go large for €{{ price_large_extra }} extra!
-                                    -->
-                                    {% endif %}</b>
+                                    {% endif %}
                                 </p>
+
+                                <!-- drinks -->
+                                {% if product.name == 'Coca Cola' %}
+                                    <div id="size-selection">
+                                        <!-- hidden input for price_large and price_medium -->
+                                        <input class="d-none" type="checkbox" id="id-price-large" name="id-price-large" value="{{ product.price_large }}">
+                                        <input class="d-none" type="checkbox" id="id-price-medium" name="id-price-medium" value="{{ product.price_medium }}">
+                                        
+                                        <div class="form-check-inline">
+                                            <label class="form-check-label">
+                                            <input type="radio" id="is-small-checked" class="form-check-input" name="opt-drinks" value="small" checked>0.33l
+                                            </label>
+                                        </div>
+                                        <div class="form-check-inline">
+                                            <label class="form-check-label">
+                                            <input type="radio" class="form-check-input" name="opt-drinks" value="medium">0.5l
+                                            </label>
+                                        </div>
+                                        <div class="form-check-inline">
+                                            <label class="form-check-label">
+                                            <input type="radio" class="form-check-input" name="opt-drinks" value="large">1.5l
+                                            </label>
+                                        </div>
+                                    </div>
+                                    {% endif %}
                                 <p class="mt-3"><strong>Quantity:</strong></p>
                                 <div class="form-group w-50">
                                     <div class="input-group">
@@ -147,7 +169,7 @@
     </div>
     <script type="text/javascript">
         $(document).ready(function() {
-        
+            /* make it meal logic*/
             $('input:checkbox#id-price-meal').change(function(){
             if($(this).is(":checked")) {
                 $('div#drink-selection').removeClass("d-none");
@@ -161,17 +183,43 @@
                 $('#add-meal-text').remove();
             }
         });
-        
-        $('input[name=opt-milkshakes]').change(function(){
-        var value = $( 'input[name=opt-milkshakes]:checked' ).val();
+        /* size option for small-large only logic */
+        $('input[name=opt-small-large-only]').change(function(){
+        var value = $('input[name=opt-small-large-only]:checked').val();
         if (value == "large") {
             var price_large = parseFloat($('#id-price-large').val()).toFixed(2);
             $('#product-price').text("€" + price_large);
-                $('#id-product-name').append('<span id="add-size-text"> - large</span>');
+            $('#id-product-name').append('<span id="add-size-text"> - large</span>');
+        } else if (value == "medium") {
+
         } else {
             var price = parseFloat($('#id-price').val()).toFixed(2);
             $('#product-price').text("€" + price);
-            $('#add-size-text').remove();;
+            $('#add-size-text').remove();
+        }
+        });
+
+        /* size option for some drinks logic */
+        if ($('#is-small-checked').is(':checked')) {
+            $('#id-product-name').append('<span id="add-size-text"> 0.33l</span>');
+        }
+        $('input[name=opt-drinks]').change(function(){
+        var value = $( 'input[name=opt-drinks]:checked' ).val();
+        if (value == "large") {
+            var price_large = parseFloat($('#id-price-large').val()).toFixed(2);
+            $('#product-price').text("€" + price_large);
+            $('#add-size-text').remove();
+            $('#id-product-name').append('<span id="add-size-text"> 1.5l</span>');
+        } else if (value == "medium"){
+            var price_medium = parseFloat($('#id-price-medium').val()).toFixed(2);
+            $('#product-price').text("€" + price_medium);
+            $('#add-size-text').remove();
+            $('#id-product-name').append('<span id="add-size-text"> 0.5l</span>');
+        } else {
+            var price = parseFloat($('#id-price').val()).toFixed(2);
+            $('#product-price').text("€" + price);
+            $('#add-size-text').remove();
+            $('#id-product-name').append('<span id="add-size-text"> 0.33l</span>');
         }
         });
 
