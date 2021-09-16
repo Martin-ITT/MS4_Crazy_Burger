@@ -152,7 +152,7 @@
                                     </div>
                                     <div class="form-check-inline">
                                         <label class="form-check-label">
-                                        <input type="radio" class="form-check-input" name="opt-pizza" value="medium" {% if product.name == "Margherita Pizza - create your own" %} checked {% endif %}>12"
+                                        <input type="radio" id="medium-pizza-checked" class="form-check-input" name="opt-pizza" value="medium" {% if product.name == "Margherita Pizza - create your own" %} checked {% endif %}>12"
                                         </label>
                                     </div>
                                     <div class="form-check-inline">
@@ -162,13 +162,15 @@
                                     </div>
                                 </div>
                                     {% if product.name == "Margherita Pizza - create your own" %}
-                                    <p class="mt-3">Extra topping</p>
-                                    <div>
+                                    <p class="mt-3" id="charge-extra-topping">Extra topping</p>
+                                    <div class="row">
                                         {% for topping in toppings %}
-                                        <div class="form-check-inline">
-                                            <label class="form-check-label">
-                                            <input type="checkbox" class="form-check-input" name="opt-topping" value="{{ topping }}">{{ topping }}
-                                            </label>
+                                        <div class="col-6 col-xl-4">
+                                            <div class="form-check-inline">
+                                                <label class="form-check-label">
+                                                <input type="checkbox" class="form-check-input" name="opt-topping" value="{{ topping }}">{{ topping }}
+                                                </label>
+                                            </div>
                                         </div>
                                         {% endfor %}
                                     </div>
@@ -256,13 +258,15 @@
         });
 
         /* size option for pizzas logic */
+        /* margherita not available 9" - adjust screen values when loading page*/
         if ($('#small-pizza-checked').is(':checked')) {
             $('#id-product-name').append('<span id="add-size-text"> 9"</span>');
         } else {
             $('#id-product-name').append('<span id="add-size-text"> 12"</span>');
             var price_medium = parseFloat($('#id-price-small').val()).toFixed(2);
+            $('#charge-extra-topping').append('<span id="charge-topping"> €1.00"</span>');
         }
-
+        /* change price on size selection */
         $('input[name=opt-pizza]').change(function(){
         var value = $( 'input[name=opt-pizza]:checked' ).val();
         if (value == "large") {
@@ -270,17 +274,35 @@
             $('#product-price').text("€" + price_large);
             $('#add-size-text').remove();
             $('#id-product-name').append('<span id="add-size-text"> 14"</span>');
+            $('#charge-topping').remove();
+            $('#charge-extra-topping').append('<span id="charge-topping"> €1.50"</span>');
         } else if (value == "medium"){
             var price_medium = parseFloat($('#id-price-medium').val()).toFixed(2);
             $('#product-price').text("€" + price_medium);
             $('#add-size-text').remove();
             $('#id-product-name').append('<span id="add-size-text"> 12"</span>');
+            $('#charge-topping').remove();
+            $('#charge-extra-topping').append('<span id="charge-topping"> €1.00"</span>');
         } else {
-            var price = parseFloat($('#id-price').val()).toFixed(2);
+            var price = parseFloat($('#id-price-small').val()).toFixed(2);
             $('#product-price').text("€" + price);
             $('#add-size-text').remove();
             $('#id-product-name').append('<span id="add-size-text"> 9"</span>');
         }
+        });
+        
+        $('input[name=opt-topping]').click(function(){
+        var boxes_checked = $('input[name=opt-topping]:checked').length;
+        if ($('#medium-pizza-checked').is(':checked')) {
+            var medium = parseFloat(price_medium);
+            var result = (boxes_checked + medium).toFixed(2);
+            $('#product-price').text("€" + result);
+            console.log(typeof(result));
+            console.log(result);
+        } else {
+
+        };
+        
         });
 
         })
