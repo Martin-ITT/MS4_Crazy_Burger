@@ -42,6 +42,7 @@ class Product(models.Model):
     price_large = models.DecimalField(max_digits=6, decimal_places=2, default=0.0)
     # to upgrade to a meal option
     price_meal = models.DecimalField(max_digits=6, decimal_places=2, default=0.0)
+    has_three_sizes = models.BooleanField(default=False)
     has_toppings = models.BooleanField(default=False)
     price_topping_medium = models.DecimalField(max_digits=6, decimal_places=2, default=0.0)
     price_topping_large = models.DecimalField(max_digits=6, decimal_places=2, default=0.0)

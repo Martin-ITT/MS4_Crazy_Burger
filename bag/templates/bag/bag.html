@@ -55,15 +55,20 @@
                                     <td class="py-3">
                                         <p class="my-0"><strong>{{ item.product.name }}</strong></p>
                                         <p class="my-0">Size: {% if item.size %} {{ item.size }} {% endif %} {% if not item.size %} N/A {% endif %}</p>
+                                        {% if item.drink %}
+                                        <p class="my-0">Drink:
+                                            <br>
+                                            {% for key, value in item.drink.items %} <pre>{{ key|title }} : {{ value }} </pre> {% endfor %}</p>
+                                        {% endif %}
                                     </td>
                                     <td class="py-3">
-                                        <p class="my-0">€{{ item.price }}</p>
+                                        <p class="my-0">€{{ item.price|floatformat:2 }}</p>
                                     </td>
                                     <td class="py-3 w-25">
                                         <p class="my-0">{{ item.quantity }}</p>
                                     </td>
                                     <td class="py-3">
-                                        <p class="my-0">€{{ item.subtotal }}</p>
+                                        <p class="my-0">€{{ item.subtotal|floatformat:2 }}</p>
                                     </td>
                                 </tr>
                             {% endfor %}
@@ -72,7 +77,7 @@
                                     <h4 class="mt-4"><strong>Bag Total: €{{ total|floatformat:2 }}</strong></h4>
                                     {% if free_delivery_delta > 0 %}
                                         <p class="mb-1 text-danger">
-                                            You could get free delivery by spending just <strong>€{{ free_delivery_delta }}</strong> more!
+                                            You could get free delivery by spending just <strong>€{{ free_delivery_delta|floatformat:2 }}</strong> more!
                                         </p>
                                     {% endif %}
                                 </td>

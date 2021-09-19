@@ -61,53 +61,61 @@
                         {% csrf_token %}
                         <div class="form-row">
                             <!-- input -->
-                            <div class="col-12">
+                            <div class="col-12"><!-- hidden input for prices -->
+                                <input type="hidden" id="id-price-large" name="id-price-large" value="{{ product.price_large }}">
+                                <input type="hidden" id="id-price-medium" name="id-price-medium" value="{{ product.price_medium }}">
+                                <input type="hidden" id="id-price-small" name="id-price-small" value="{{ product.price }}">
+                                <input type="hidden" id="id-price" name="id-price" value="{{ product.price }}">
+                                <input type="hidden" id="category-name" name="category-name" value="{{ product.category.name }}">
+                                <input type="hidden" id="id-price-meal" name="id-price-meal" value="{{ product.price_meal }}">
                                 <!-- make it meal -->
                                 {% if product.price_meal %}
-                                <p class="mt-3">                                    
-                                    <input type="checkbox" id="id-price-meal" name="id-price-meal" value="{{ product.price_meal }}">
-                                    <input type="hidden" id="id-price" value="{{ product.price }}">
-                                    <b>Make it meal for €{{ price_meal_extra }} extra!</b>
+                                <p class="mt-3">
+                                    <div id="size-selection">
+                                        <div class="form-check">
+                                            <label class="form-check-label">
+                                            <input type="radio" class="form-check-input" name="is-meal" value="no-meal" checked>Only burger
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <label class="form-check-label">
+                                            <input type="radio" class="form-check-input" name="is-meal" value="meal">Make it meal for €{{ price_meal_extra }} extra!
+                                            </label>
+                                        </div>
+                                    </div>
                                 </p>
-                                {% endif %}
-
                                 <!-- select drink with meal -->
                                 <div id="drink-selection" class="d-none">
                                     <div class="form-check-inline">
                                         <label class="form-check-label">
-                                        <input type="radio" class="form-check-input" name="optradio" value="coke" checked>Coke
+                                        <input type="radio" class="form-check-input" name="meal-drink" value="coke" checked>Coke
                                         </label>
                                     </div>
                                     <div class="form-check-inline">
                                         <label class="form-check-label">
-                                        <input type="radio" class="form-check-input" name="optradio" value="diet">Diet Coke
+                                        <input type="radio" class="form-check-input" name="meal-drink" value="diet">Diet Coke
                                         </label>
                                     </div>
                                     <div class="form-check-inline">
                                         <label class="form-check-label">
-                                        <input type="radio" class="form-check-input" name="optradio" value="zero">Coke Zero
+                                        <input type="radio" class="form-check-input" name="meal-drink" value="zero">Coke Zero
                                         </label>
                                     </div>
                                     <div class="form-check-inline">
                                         <label class="form-check-label">
-                                        <input type="radio" class="form-check-input" name="optradio" value="fanta">Fanta
+                                        <input type="radio" class="form-check-input" name="meal-drink" value="fanta">Fanta
                                         </label>
                                     </div>
                                     <div class="form-check-inline">
                                         <label class="form-check-label">
-                                        <input type="radio" class="form-check-input" name="optradio" value="sprite">Sprite
+                                        <input type="radio" class="form-check-input" name="meal-drink" value="sprite">Sprite
                                         </label>
                                     </div>
                                 </div>
-
-                                <!-- size selection for products with size except pizzas, and drinks -->
-                                <!-- hidden input for prices -->
-                                <input type="hidden" id="id-price-large" name="id-price-large" value="{{ product.price_large }}">
-                                <input type="hidden" id="id-price-medium" name="id-price-medium" value="{{ product.price_medium }}">
-                                <input type="hidden" id="id-price-small" name="id-price-small" value="{{ product.price }}">
-                                <input type="hidden" id="category-name" name="category-name" value="{{ product.category.name }}">
+                                {% endif %}
+                                <!-- size selection for products with size except pizzas, and some drinks -->
                                 <p class="mt-3">
-                                    {% if product.price_large and product.category.name != 'pizza' and product.category.name != 'drinks' %}
+                                    {% if product.price_large and product.category.name != 'pizza' and not product.has_three_sizes %}
                                     <div id="size-selection">
                                         <div class="form-check">
                                             <label class="form-check-label">
@@ -124,7 +132,7 @@
                                 </p>
 
                                 <!-- drinks -->
-                                {% if product.name == 'Coca Cola' %}
+                                {% if product.has_three_sizes %}
                                 <div id="size-selection-drinks">
                                     <div class="form-check-inline">
                                         <label class="form-check-label">
@@ -207,8 +215,12 @@
         $(document).ready(function() {
             var category = $('#category-name').val();
             /* make it meal logic*/
+            /*
             $('input:checkbox#id-price-meal').change(function(){
-            if($(this).is(":checked")) {
+            */
+            $('input[name=is-meal]').change(function(){
+            var value = $('input[name=is-meal]:checked').val();
+            if (value == "meal") {
                 $('div#drink-selection').removeClass("d-none");
                 var price_meal = parseFloat($('#id-price-meal').val()).toFixed(2);
                 $('#product-price').text("€" + price_meal);

@@ -1,4 +1,4 @@
-#from decimal import Decimal
+from decimal import Decimal
 from django.conf import settings
 from django.shortcuts import get_object_or_404
 from products.models import Product
@@ -13,24 +13,23 @@ def bag_contents(request):
 
     for item_id, item_data in bag.items():
         if isinstance(item_data, int):
-            print(item_id)
             product = get_object_or_404(Product, pk=item_id)
-            total += item_data * product.price
+            total += Decimal(item_data * product.price)
             product_count += item_data
             bag_items.append({
                 'item_id': item_id,
-                'quantity': item_data,
+                'quantity': Decimal(item_data),
                 'product': product,
                 'price': product.price,
                 'subtotal': product.price * item_data,
             })
         else:
             product = get_object_or_404(Product, pk=item_id)
-            print(item_data)
             for size, quantity in item_data['items_by_size'].items():
                 if size == 'small':
-                    price = 5
-                    total += quantity * price
+                    price = item_data['price_by_size']['small']
+                    print(type(quantity))
+                    total += Decimal(quantity * price)
                     product_count += quantity
                     bag_items.append({
                         'item_id': item_id,
@@ -41,8 +40,8 @@ def bag_contents(request):
                         'subtotal': price * quantity,
                     })
                 if size == 'large':
-                    price = 10
-                    total += quantity * price
+                    price = item_data['price_by_size']['large']
+                    total += Decimal(quantity * price)
                     product_count += quantity
                     bag_items.append({
                         'item_id': item_id,
@@ -52,7 +51,34 @@ def bag_contents(request):
                         'price': price,
                         'subtotal': price * quantity,
                     })
-    
+                if size == 'meal':
+                    price = item_data['price_by_size']['meal']
+                    meal_drink = item_data['meal_drink']
+                    total += Decimal(quantity * price)
+                    product_count += quantity
+                    bag_items.append({
+                        'item_id': item_id,
+                        'quantity': quantity,
+                        'product': product,
+                        'size': size,
+                        'price': price,
+                        'subtotal': price * quantity,
+                        'drink': meal_drink,
+                    })
+                if size == 'n/a':
+                    price = item_data['price_by_size']['n/a']
+                    total += Decimal(quantity * price)
+                    product_count += quantity
+                    bag_items.append({
+                        'item_id': item_id,
+                        'quantity': quantity,
+                        'product': product,
+                        'size': size,
+                        'price': price,
+                        'subtotal': price * quantity,
+                    })
+
+    print(bag)
     if total < settings.FREE_DELIVERY_THRESHOLD:
         delivery = settings.STANDARD_DELIVERY_CHARGE
         free_delivery_delta = settings.FREE_DELIVERY_THRESHOLD - total
