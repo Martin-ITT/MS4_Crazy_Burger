@@ -32,11 +32,11 @@ def add_to_bag(request, item_id):
         meal_drink = 'none'
 
     # product with size selection
-    if request.POST['category-name'] == 'milkshakes':
-        size = request.POST['opt-small-large-only']
+    if request.POST.get('opt-size'):
+        size = request.POST['opt-size']
 
         if size == "small":
-            price = float(request.POST['id-price-small'])
+            price = float(request.POST['id-price'])
 
         if size == "medium":
             price = float(request.POST['id-price-medium'])
@@ -50,11 +50,9 @@ def add_to_bag(request, item_id):
                 if meal_drink not in bag[item_id]['meal_drink'].keys():
                     bag[item_id]['meal_drink'][meal_drink] = drink_quantity
                     bag[item_id]['items_by_size'][size] += quantity
-                    print("id in bag but different flavour")
                 elif meal_drink in bag[item_id]['meal_drink'].keys():
                     bag[item_id]['meal_drink'][meal_drink] += drink_quantity
                     bag[item_id]['items_by_size'][size] += quantity
-                    print("id and flavour already in bag")
                 else:
                     bag[item_id]['items_by_size'][size] += quantity
             else:
@@ -63,7 +61,6 @@ def add_to_bag(request, item_id):
         else:
             bag[item_id] = {'items_by_size': {
                 size: quantity}, 'price_by_size': {size: price}, 'meal_drink': {meal_drink: drink_quantity}}
-            print("product id added for a first time")
 
     else:
         if item_id in list(bag.keys()):
@@ -71,7 +68,5 @@ def add_to_bag(request, item_id):
         else:
             bag[item_id] = quantity
 
-    print(type(bag[item_id]['meal_drink']))
-    print(type(meal_drink))
     request.session['bag'] = bag
     return redirect(redirect_url)

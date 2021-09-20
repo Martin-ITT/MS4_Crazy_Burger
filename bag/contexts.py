@@ -28,7 +28,6 @@ def bag_contents(request):
             for size, quantity in item_data['items_by_size'].items():
                 if size == 'small':
                     price = item_data['price_by_size']['small']
-                    print(type(quantity))
                     total += Decimal(quantity * price)
                     product_count += quantity
                     bag_items.append({

@@ -58,7 +58,7 @@
                                         {% if item.drink %}
                                         <p class="my-0">Drink:
                                             <br>
-                                            {% for key, value in item.drink.items %} <pre>{{ key|title }} : {{ value }} </pre> {% endfor %}</p>
+                                            {% for key, value in item.drink.items %} {% if key != 'none' %}<pre>{{ key|title }} : {{ value }} </pre> {% endif %} {% endfor %}</p>
                                         {% endif %}
                                     </td>
                                     <td class="py-3">
