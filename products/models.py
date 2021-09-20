@@ -37,12 +37,15 @@ class Product(models.Model):
     description = models.TextField()
     allergens = models.ManyToManyField(Allergen, blank=True)
     price = models.DecimalField(max_digits=6, decimal_places=2)
+    size = models.CharField(max_length=10, blank=True)
     # price for medium and large if available for some categories
+    has_sizes = models.BooleanField(default=False)
     price_medium = models.DecimalField(max_digits=6, decimal_places=2, default=0.0)
+    size_medium = models.CharField(max_length=10, blank=True)
     price_large = models.DecimalField(max_digits=6, decimal_places=2, default=0.0)
+    size_large = models.CharField(max_length=10, blank=True)
     # to upgrade to a meal option
     price_meal = models.DecimalField(max_digits=6, decimal_places=2, default=0.0)
-    has_three_sizes = models.BooleanField(default=False)
     has_toppings = models.BooleanField(default=False)
     price_topping_medium = models.DecimalField(max_digits=6, decimal_places=2, default=0.0)
     price_topping_large = models.DecimalField(max_digits=6, decimal_places=2, default=0.0)

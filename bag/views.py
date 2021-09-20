@@ -13,6 +13,7 @@ def add_to_bag(request, item_id):
     """ Add a quantity of the specified product to the shopping bag """
 
     quantity = int(request.POST.get('quantity'))
+    drink_quantity = int(request.POST.get('quantity'))
     meal_drink = request.POST.get('meal-drink')
     redirect_url = request.POST.get('redirect_url')
     bag = request.session.get('bag', {})
@@ -28,6 +29,7 @@ def add_to_bag(request, item_id):
     else:
         size = "n/a"
         price = float(request.POST['id-price'])
+        meal_drink = 'none'
 
     # product with size selection
     if request.POST['category-name'] == 'milkshakes':
@@ -45,11 +47,14 @@ def add_to_bag(request, item_id):
     if size:
         if item_id in list(bag.keys()):
             if size in bag[item_id]['items_by_size'].keys():
-                if meal_drink != bag[item_id]['meal_drink']:
-                    bag[item_id]['meal_drink'][meal_drink] = quantity
+                if meal_drink not in bag[item_id]['meal_drink'].keys():
+                    bag[item_id]['meal_drink'][meal_drink] = drink_quantity
                     bag[item_id]['items_by_size'][size] += quantity
-                if meal_drink == bag[item_id]['meal_drink']:
-                    bag[item_id]['meal_drink'][meal_drink] += quantity
+                    print("id in bag but different flavour")
+                elif meal_drink in bag[item_id]['meal_drink'].keys():
+                    bag[item_id]['meal_drink'][meal_drink] += drink_quantity
+                    bag[item_id]['items_by_size'][size] += quantity
+                    print("id and flavour already in bag")
                 else:
                     bag[item_id]['items_by_size'][size] += quantity
             else:
@@ -57,7 +62,8 @@ def add_to_bag(request, item_id):
                 bag[item_id]['price_by_size'][size] = price
         else:
             bag[item_id] = {'items_by_size': {
-                size: quantity}, 'price_by_size': {size: price}, 'meal_drink': {meal_drink: quantity}}
+                size: quantity}, 'price_by_size': {size: price}, 'meal_drink': {meal_drink: drink_quantity}}
+            print("product id added for a first time")
 
     else:
         if item_id in list(bag.keys()):
