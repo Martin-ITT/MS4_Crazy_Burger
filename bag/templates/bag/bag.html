@@ -56,7 +56,7 @@
                                     {% endif %}
                                     <td class="py-3">
                                         <p class="my-0"><strong>{{ item.product.name }}</strong></p>
-                                        <p class="my-0">Size: {% if item.size %} {{ item.size }} {% endif %} {% if item.pizza_size %} {{ item.pizza_size }} {% endif %} {% if not item.size %} N/A {% endif %}</p>
+                                        <p class="my-0">Size: {{ item.display_size}} {% if item.size %} {{ item.size }} {% endif %} {% if item.pizza_size %} {{ item.pizza_size }} {% endif %} {% if not item.size %} N/A {% endif %}</p>
                                         {% if item.drink %}
                                         <p class="my-0">Drink:
                                             <br>

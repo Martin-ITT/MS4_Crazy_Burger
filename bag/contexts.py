@@ -25,36 +25,24 @@ def bag_contents(request):
             })
         else:
             product = get_object_or_404(Product, pk=item_id)
-            for size, quantity in item_data['items_by_size'].items():
-                if size == 'small':
-                    price = item_data['price_by_size']['small']
-                    total += Decimal(quantity * price)
-                    product_count += quantity
-                    bag_items.append({
-                        'item_id': item_id,
-                        'quantity': quantity,
-                        'product': product,
-                        'size': size,
-                        'price': price,
-                        'subtotal': price * quantity,
-                    })
-                if size == 'medium':
-                    price = item_data['price_by_size']['medium']
-                    toppings = item_data['toppings']
-                    total += Decimal(quantity * price)
-                    product_count += quantity
-                    bag_items.append({
-                        'item_id': item_id,
-                        'quantity': quantity,
-                        'product': product,
-                        'size': size,
-                        'price': price,
-                        'subtotal': price * quantity,
-                        'toppings': toppings,
-                    })
+            for size, quantity in item_data['product_data'].items():
+                # if size == 'small':
+                price = float(item_data['price'][size])
+                display_size = item_data['product_data'].keys()
+                total += Decimal(quantity * price)
+                product_count += quantity
+                bag_items.append({
+                    'item_id': item_id,
+                    'quantity': quantity,
+                    'product': product,
+                    'size': size,
+                    'price': price,
+                    'subtotal': price * quantity,
+                    'display_size': display_size,
+                })
+                """
                 if size == 'large':
                     price = item_data['price_by_size']['large']
-                    toppings = item_data['toppings']
                     total += Decimal(quantity * price)
                     product_count += quantity
                     bag_items.append({
@@ -64,7 +52,6 @@ def bag_contents(request):
                         'size': size,
                         'price': price,
                         'subtotal': price * quantity,
-                        'toppings': toppings,
                     })
                 if size == 'meal':
                     price = item_data['price_by_size']['meal']
@@ -92,9 +79,7 @@ def bag_contents(request):
                         'price': price,
                         'subtotal': price * quantity,
                     })
-
-    print("\n Bag:")
-    print(bag)
+                        """
     if total < settings.FREE_DELIVERY_THRESHOLD:
         delivery = settings.STANDARD_DELIVERY_CHARGE
         free_delivery_delta = settings.FREE_DELIVERY_THRESHOLD - total
@@ -115,5 +100,6 @@ def bag_contents(request):
         'free_delivery_threshold': settings.FREE_DELIVERY_THRESHOLD,
         'grand_total': grand_total,
     }
-
+    print("\n bag")
+    print(bag)
     return context
