@@ -18,19 +18,12 @@
         <div class="col text-center mt-4">
             <h2 class="logo-font">Products</h2>
             <!-- products submenu -->
-            {% for c in current_categories %}
-                <a class="category-badge text-decoration-none" href="{% url 'products' %}?category={{ c.name }}">
-                    <span class="p-2 mt-2 badge badge-white text-black rounded-0 border border-dark">{{ c.friendly_name }}</span>
+            {% for d in display_categories %}
+                <a class="category-badge text-decoration-none" href="{% url 'products' %}?category={{ d.name }}">
+                    <span class="p-2 mt-2 badge badge-white text-black rounded-0 border border-dark">{{ d.friendly_name }}</span>
                 </a>
             {% endfor %}
-            <!--
-            {% if current_categories %}
-            <a class="category-badge text-decoration-none" href="{% url 'products' %}?sort=category&direction=asc&category=salads,creoles,kebabs,wraps,
-            baguettes,milkshakes,specials,china_town,fish,pizza,loaded_chips,burgers">
-                <span class="p-2 mt-2 badge badge-white text-black rounded-0 border border-dark">All categories</span>
-            </a>
-            {% endif %}
-        -->
+           
             <hr class="w-50 mx-auto mb-1">
         </div>
     </div>

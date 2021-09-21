@@ -58,7 +58,7 @@
                                         <p class="my-0"><strong>{{ item.product.name }}</strong></p>
                                         <p class="my-0">Size: {% if item.size %} {{ item.size }} {% endif %} {% if not item.size %} N/A {% endif %}</p>
                                         {% if item.drink %}
-                                            <p class="my-0">Drink: {{ item.drink }}</p>
+                                            <p class="my-0">Drink: {{ item.drink|title }}</p>
                                         {% endif %}
                                         {% if item.toppings %}
                                             <p class="my-0">Topping(s): </p>
