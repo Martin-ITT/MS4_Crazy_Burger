@@ -38,8 +38,9 @@ def bag_contents(request):
                         'price': price,
                         'subtotal': price * quantity,
                     })
-                if size == 'large':
-                    price = item_data['price_by_size']['large']
+                if size == 'medium':
+                    price = item_data['price_by_size']['medium']
+                    toppings = item_data['toppings']
                     total += Decimal(quantity * price)
                     product_count += quantity
                     bag_items.append({
@@ -49,6 +50,21 @@ def bag_contents(request):
                         'size': size,
                         'price': price,
                         'subtotal': price * quantity,
+                        'toppings': toppings,
+                    })
+                if size == 'large':
+                    price = item_data['price_by_size']['large']
+                    toppings = item_data['toppings']
+                    total += Decimal(quantity * price)
+                    product_count += quantity
+                    bag_items.append({
+                        'item_id': item_id,
+                        'quantity': quantity,
+                        'product': product,
+                        'size': size,
+                        'price': price,
+                        'subtotal': price * quantity,
+                        'toppings': toppings,
                     })
                 if size == 'meal':
                     price = item_data['price_by_size']['meal']
@@ -77,6 +93,7 @@ def bag_contents(request):
                         'subtotal': price * quantity,
                     })
 
+    print("\n Bag:")
     print(bag)
     if total < settings.FREE_DELIVERY_THRESHOLD:
         delivery = settings.STANDARD_DELIVERY_CHARGE
