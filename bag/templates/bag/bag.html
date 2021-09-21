@@ -56,11 +56,15 @@
                                     {% endif %}
                                     <td class="py-3">
                                         <p class="my-0"><strong>{{ item.product.name }}</strong></p>
-                                        <p class="my-0">Size: {{ item.display_size}} {% if item.size %} {{ item.size }} {% endif %} {% if item.pizza_size %} {{ item.pizza_size }} {% endif %} {% if not item.size %} N/A {% endif %}</p>
+                                        <p class="my-0">Size: {% if item.size %} {{ item.size }} {% endif %} {% if not item.size %} N/A {% endif %}</p>
                                         {% if item.drink %}
-                                        <p class="my-0">Drink:
-                                            <br>
-                                            {% for key, value in item.drink.items %} {% if key != 'none' %}<pre>{{ key|title }} : {{ value }} </pre> {% endif %} {% endfor %}</p>
+                                            <p class="my-0">Drink: {{ item.drink }}</p>
+                                        {% endif %}
+                                        {% if item.toppings %}
+                                            <p class="my-0">Topping(s): </p>
+                                            {% for topping in item.toppings %}
+                                                {{ topping }}{% if forloop.last %}.{% else %}, {% endif %} 
+                                            {% endfor %}
                                         {% endif %}
                                     </td>
                                     <td class="py-3">

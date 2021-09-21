@@ -26,9 +26,15 @@ def bag_contents(request):
         else:
             product = get_object_or_404(Product, pk=item_id)
             for size, quantity in item_data['product_data'].items():
-                # if size == 'small':
                 price = float(item_data['price'][size])
-                display_size = item_data['product_data'].keys()
+                data = size.split('.')
+                size = data[0]
+                drink = None
+                if size == 'meal':
+                    drink = data[2]
+                toppings = None
+                if data[1] == 'pizza':
+                    toppings = data[2].split(',')
                 total += Decimal(quantity * price)
                 product_count += quantity
                 bag_items.append({
@@ -36,9 +42,10 @@ def bag_contents(request):
                     'quantity': quantity,
                     'product': product,
                     'size': size,
+                    'drink': drink,
+                    'toppings': toppings,
                     'price': price,
                     'subtotal': price * quantity,
-                    'display_size': display_size,
                 })
                 """
                 if size == 'large':
