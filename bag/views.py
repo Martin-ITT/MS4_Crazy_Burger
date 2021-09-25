@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, reverse
 
 # Create your views here.
 
@@ -14,6 +14,9 @@ def add_to_bag(request, item_id):
 
     quantity = int(request.POST.get('quantity'))
     redirect_url = request.POST.get('redirect_url')
+    bag = request.session.get('bag', {})
+    print("\n POST request from form to add_to_bag:")
+    print(request.POST)
     size = None
     drink = ""
 
@@ -29,15 +32,15 @@ def add_to_bag(request, item_id):
     if 'opt-pizza' in request.POST:
         size = request.POST['opt-pizza']
         if 'opt-topping' in request.POST:
-            toppings = ",".join(request.POST.getlist('opt-topping'))
+            toppings = "-".join(request.POST.getlist('opt-topping'))
         num_of_toppings = len(request.POST.getlist('opt-topping'))
         print("\n num of toppingd")
         print(num_of_toppings)
         # toppings displayed only if selected
         if num_of_toppings > 0:
-            product_data = size + ".pizza." + toppings
+            product_data = size + "_pizza_" + toppings + "_" + item_id
         else:
-            product_data = size + ".other-pizza." + toppings
+            product_data = size + "_other-pizza_" + toppings + "_" + item_id
         # set price by size plus charge toping if any
         if size == 'small':
             price = request.POST['id-price']
@@ -57,21 +60,17 @@ def add_to_bag(request, item_id):
             price = request.POST['id-price-medium']
         if size == 'large':
             price = request.POST['id-price-large']
-        product_data = size + '.size.' + drink
+        product_data = size + '_size_' + drink + "_" + item_id
 
     # products which can be upgraded to meal
     if 'is-meal' in request.POST:
         size = request.POST['is-meal']
         drink = request.POST['meal-drink']
-        product_data = size + '.meal.' + drink
+        product_data = size + '_meal_' + drink + "_" + item_id
         if size == 'meal':
             price = request.POST['id-price-meal']
         else:
             price = request.POST['id-price']
-
-    bag = request.session.get('bag', {})
-    print("\n request:")
-    print(request.POST)
 
     # product is meal, has sizes or is pizza
     if product_data:
@@ -99,3 +98,61 @@ def add_to_bag(request, item_id):
 
     request.session['bag'] = bag
     return redirect(redirect_url)
+
+
+def adjust_bag(request, item_id):
+    # Adjust the quantity of the specified product in the shopping bag
+
+    quantity = int(request.POST.get('quantity'))
+    size = None
+    if 'product_size' in request.POST:
+        print('\n product_data from bag.html request to adjust_bag:')
+        # print(product_data)
+        print("\n adjust.bag request.POST: from bag.html to adjust_bag:")
+        print(request.POST)
+        size = request.POST['product_size']
+        # size = request.POST['product_size'].split("'")[1]
+        print("\n product_size from bag.html POST request to adjust_bag:")
+        # print(type(size))
+        print(size)
+        quantity = int(request.POST['quantity'])
+        print("\n quantity from bag.html POST request to adjust_bag:")
+        print(quantity)
+    bag = request.session.get('bag', {})
+
+    if quantity > 0 and quantity < 99:
+        # product is meal, has sizes or is pizza
+        if size:
+            # product id already in a bag
+            if quantity > 0:
+                bag[item_id]['product_data'][size] = quantity
+                # problem to get product_data from request.POST
+                print("\n product_data to be updated")
+                # print(bag[item_id]['product_data'])
+                # print("product with data, quantity greater than zero, adjusting qty")
+                # print("\n item id")
+                # print(item_id)
+            else:
+                del bag[item_id]['product_data'][size]
+                if not bag[item_id]['product_data']:
+                    bag.pop(item_id)
+                # print("product with data, quantity zero, removing data from id")
+                # print("\n item id")
+                # print(item_id)
+        # products with no extra options
+        else:
+            if quantity > 0:
+                bag[item_id] = quantity
+                # print("product no data, qty greater than zero, adjusting qty")
+                # print("\n item id")
+                # print(item_id)
+            else:
+                bag.pop(item_id)
+                # print("product no data, qty zero, removing product")
+                # print("\n item id")
+                # print(item_id)
+    else:
+        print("quantity out of range!")
+
+    request.session['bag'] = bag
+    return redirect(reverse("view_bag"))

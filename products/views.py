@@ -46,6 +46,7 @@ def all_products(request):
             category_deserts = ['ice_cream', 'crepes', 'milkshakes', 'other_deserts']
             category_other = ['new_products', 'specials', 'drinks', 'extras']
             display_categories = request.GET['category'].split(',')
+            
             if category in category_food:
                 display_categories = category_food
                 display_categories = Category.objects.filter(name__in=display_categories)

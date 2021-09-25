@@ -97,6 +97,13 @@ body {
     cursor: pointer;
 }
 */
+
+.btt-link,
+.update-link,
+.remove-item {
+    cursor: pointer;
+}
+
 a.category-badge > span.badge:hover {
     background: #212529 !important; /* BS dark class */
     color: #fff !important;
