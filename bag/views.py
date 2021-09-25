@@ -1,4 +1,5 @@
-from django.shortcuts import render, redirect, reverse
+from django.shortcuts import (
+    render, redirect, reverse, HttpResponse)
 
 # Create your views here.
 
@@ -106,18 +107,9 @@ def adjust_bag(request, item_id):
     quantity = int(request.POST.get('quantity'))
     size = None
     if 'product_size' in request.POST:
-        print('\n product_data from bag.html request to adjust_bag:')
-        # print(product_data)
-        print("\n adjust.bag request.POST: from bag.html to adjust_bag:")
-        print(request.POST)
         size = request.POST['product_size']
-        # size = request.POST['product_size'].split("'")[1]
-        print("\n product_size from bag.html POST request to adjust_bag:")
-        # print(type(size))
-        print(size)
         quantity = int(request.POST['quantity'])
-        print("\n quantity from bag.html POST request to adjust_bag:")
-        print(quantity)
+       
     bag = request.session.get('bag', {})
 
     if quantity > 0 and quantity < 99:
@@ -127,32 +119,40 @@ def adjust_bag(request, item_id):
             if quantity > 0:
                 bag[item_id]['product_data'][size] = quantity
                 # problem to get product_data from request.POST
-                print("\n product_data to be updated")
-                # print(bag[item_id]['product_data'])
-                # print("product with data, quantity greater than zero, adjusting qty")
-                # print("\n item id")
-                # print(item_id)
             else:
                 del bag[item_id]['product_data'][size]
                 if not bag[item_id]['product_data']:
                     bag.pop(item_id)
-                # print("product with data, quantity zero, removing data from id")
-                # print("\n item id")
-                # print(item_id)
         # products with no extra options
         else:
             if quantity > 0:
                 bag[item_id] = quantity
-                # print("product no data, qty greater than zero, adjusting qty")
-                # print("\n item id")
-                # print(item_id)
             else:
                 bag.pop(item_id)
-                # print("product no data, qty zero, removing product")
-                # print("\n item id")
-                # print(item_id)
+            
     else:
         print("quantity out of range!")
 
     request.session['bag'] = bag
     return redirect(reverse("view_bag"))
+
+def remove_from_bag(request, item_id):
+    # Remove product from the shopping bag
+
+    try:
+        size = None
+        if 'product_size' in request.POST:
+            size = request.POST['product_size']
+        bag = request.session.get('bag', {})
+
+        if size:
+            del bag[item_id]['product_data'][size]
+            if not bag[item_id]['product_data']:
+                bag.pop(item_id)
+        else:
+            bag.pop(item_id)
+
+        request.session['bag'] = bag
+        return HttpResponse(status=200)
+    except:
+        return HttpResponse(status=500)
