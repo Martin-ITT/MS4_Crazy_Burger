@@ -80,6 +80,8 @@ def all_products(request):
             queries = Q(name__icontains=query) | Q(
                 description__icontains=query)
             products = products.filter(queries)
+            messages.info(
+                    request, f"Showing results for {query}")
 
     current_sorting = f'{sort}_{direction}'
 
