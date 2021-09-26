@@ -41,6 +41,9 @@ def all_products(request):
 
         if 'category' in request.GET:
             category = request.GET['category']
+            if ',' in request.GET['category']:
+                category = category.split(",")[0]
+                print(category)
             category_food = ['burgers', 'pizza', 'loaded_chips', 'salads', 'creoles', 'kebabs', 'wraps', 'baguettes', 'china_town', 'fish', 'sides']
             category_meals_deals = ['kids_meals', 'daily_offers', 'deals', 'meals']
             category_deserts = ['ice_cream', 'crepes', 'milkshakes', 'other_deserts']
