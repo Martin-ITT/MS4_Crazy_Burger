@@ -1,5 +1,8 @@
 from django.shortcuts import (
     render, redirect, reverse, HttpResponse)
+from django.contrib import messages
+
+from products.models import Product
 
 # Create your views here.
 
@@ -13,6 +16,7 @@ def view_bag(request):
 def add_to_bag(request, item_id):
     # Add a quantity of the specified product to the shopping bag
 
+    product = Product.objects.get(pk=item_id)
     quantity = int(request.POST.get('quantity'))
     redirect_url = request.POST.get('redirect_url')
     bag = request.session.get('bag', {})
@@ -75,27 +79,32 @@ def add_to_bag(request, item_id):
 
     # product is meal, has sizes or is pizza
     if product_data:
-        # product id already in a bag
+        # is product id already in a bag
         if item_id in list(bag.keys()):
             # exactly same product added
             if product_data in bag[item_id]['product_data'].keys():
                 bag[item_id]['product_data'][product_data] += quantity
+                messages.success(request, f'{product.name} - {size} - quantity updated in bag. -3')
             # same id products but different attributes
             else:
                 bag[item_id]['product_data'][product_data] = quantity
                 bag[item_id]['price'][product_data] = price
+                messages.success(request, f'{product.name} - {size} added to bag. -1')
         # product added for a first time
         else:
             bag[item_id] = {
                 'product_data': {product_data: quantity},
                 'price': {product_data: price},
                 }
+            messages.success(request, f'{product.name} - {size} added to bag. -2')
     # products with no extra options
     else:
         if item_id in list(bag.keys()):
             bag[item_id] += quantity
+            messages.success(request, f'{product.name} - quantity updated in bag. -3')
         else:
             bag[item_id] = quantity
+            messages.success(request, f'{product.name} added to bag. -4')
 
     request.session['bag'] = bag
     return redirect(redirect_url)
@@ -143,6 +152,9 @@ def remove_from_bag(request, item_id):
         size = None
         if 'product_size' in request.POST:
             size = request.POST['product_size']
+            # products without size
+            if size == item_id:
+                size = None
         bag = request.session.get('bag', {})
 
         if size:
