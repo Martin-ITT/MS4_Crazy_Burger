@@ -108,7 +108,7 @@ a.category-badge > span.badge:hover {
     background: #212529 !important; /* BS dark class */
     color: #fff !important;
 }
-
+/* --------------------------------------- Toasts */
 .message-container {
     position: fixed;
     top: 72px;
@@ -118,6 +118,12 @@ a.category-badge > span.badge:hover {
 
 .my-toast {
     overflow: visible;
+}
+
+.bag-notification-wrapper {
+    height: 150px;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 /* -------------------------------- Media Queries */
