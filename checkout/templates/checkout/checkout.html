@@ -63,7 +63,7 @@
                             <p class="my-0 small text-muted">Qty: {{ item.quantity }}</p>
                         </div>
                         <div class="col-3 text-right">
-                            <p class="my-0 small text-muted">€{{ item.price | floatformat:2 }}</p>
+                            <p class="my-0 small text-muted">€{{ item.subtotal | floatformat:2 }}</p>
                             <!-- | calc_subtotal:item.quantity  -->
                         </div>
                     </div>
@@ -147,3 +147,9 @@
     </div>
 {% endblock %}
 
+{% block postload_js %}
+    {{ block.super }}
+    {{ stripe_public_key|json_script:"id_stripe_public_key" }}
+    {{ client_secret|json_script:"id_client_secret" }}
+    <script src="{% static 'checkout/js/stripe_elements.js' %}"></script> 
+{% endblock %}

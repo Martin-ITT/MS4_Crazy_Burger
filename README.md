@@ -74,3 +74,5 @@ Food pictures were downloaded from kaggle.com - K Scott Mader
     https://www.kaggle.com/kmader/food41?select=images
 Logo was created using Adobe Spark logo maker
     https://www.adobe.com/express/create/logo
+
+    https://stackoverflow.com/questions/44915511/stripe-elements-google-web-font-not-working
