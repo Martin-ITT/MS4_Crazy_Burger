@@ -84,7 +84,7 @@ def add_to_bag(request, item_id):
             # exactly same product added
             if product_data in bag[item_id]['product_data'].keys():
                 bag[item_id]['product_data'][product_data] += quantity
-                messages.success(request, f'{product.name} - {size} - quantity updated in bag.')
+                messages.success(request, f'{product.name} - {size} - quantity updated.')
             # same id products but different attributes
             else:
                 bag[item_id]['product_data'][product_data] = quantity
@@ -101,7 +101,7 @@ def add_to_bag(request, item_id):
     else:
         if item_id in list(bag.keys()):
             bag[item_id] += quantity
-            messages.success(request, f'{product.name} - quantity updated in bag.')
+            messages.success(request, f'{product.name} - quantity updated.')
         else:
             bag[item_id] = quantity
             messages.success(request, f'{product.name} added to bag.')
@@ -128,7 +128,7 @@ def adjust_bag(request, item_id):
             # product id already in a bag
             if quantity > 0:
                 bag[item_id]['product_data'][size] = quantity
-                messages.success(request, f'{product.name} - {size.split("_")[0]} - quantity updated in bag.')
+                messages.success(request, f'{product.name} - {size.split("_")[0]} - quantity updated.')
                 # problem to get product_data from request.POST
             else:
                 del bag[item_id]['product_data'][size]
@@ -139,7 +139,7 @@ def adjust_bag(request, item_id):
         else:
             if quantity > 0:
                 bag[item_id] = quantity
-                messages.success(request, f'{product.name} - quantity updated in bag.')
+                messages.success(request, f'{product.name} - quantity updated.')
             else:
                 bag.pop(item_id)
                 messages.success(request, f'{product.name} - removed from bag.')
