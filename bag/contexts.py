@@ -36,7 +36,7 @@ def bag_contents(request):
                     drink = data[2]
                 toppings = 'None'
                 if data[1] == 'pizza':
-                    toppings = data[2].split(',')
+                    toppings = data[2].split('-')
                 total += Decimal(quantity * price)
                 product_count += quantity
                 bag_items.append({

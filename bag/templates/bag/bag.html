@@ -140,7 +140,7 @@
                                         </span>
                                         <span class="text-uppercase">Keep Shopping</span>
                                     </a>
-                                    <a href="" class="btn btn-black rounded-0 btn-lg">
+                                    <a href="{% url 'checkout' %}" class="btn btn-black rounded-0 btn-lg">
                                         <span class="text-uppercase">Secure Checkout</span>
                                         <span class="icon">
                                             <i class="fas fa-lock"></i>
@@ -180,11 +180,8 @@
     // Remove item and reload on click
     $('.remove-item').click(function(e) {
         var csrfToken = "{{ csrf_token }}";
-        console.log("csrf: " + csrfToken);
         var itemId = $(this).attr('id').split('remove_')[1];
-        console.log("itemId: " + itemId);
         var size = $(this).data('product_size');
-        console.log("size: " + size);
 
         var url = `/bag/remove/${itemId}/ `;
         var data = {'csrfmiddlewaretoken': csrfToken, 'product_size': size};
