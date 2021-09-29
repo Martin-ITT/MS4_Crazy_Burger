@@ -58,7 +58,7 @@ def checkout(request):
                                 drink = data[2]
                             toppings = 'None'
                             if data[1] == 'pizza':
-                                toppings = data[2].split('-')
+                                toppings = ", ".join(data[2].split('-'))
                             order_line_item = OrderLineItem(
                                 order=order,
                                 product=product,

@@ -40,3 +40,6 @@ class OrderForm(forms.ModelForm):
             self.fields[field].widget.attrs['class'] = (
                 'stripe-style-input w-100 mb-1')
             self.fields[field].label = False
+            self.fields['comment'].widget.attrs['style'] = (
+                'min-height:5rem'
+            )

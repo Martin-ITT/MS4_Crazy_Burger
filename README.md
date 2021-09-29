@@ -76,3 +76,4 @@ Logo was created using Adobe Spark logo maker
     https://www.adobe.com/express/create/logo
 
     https://stackoverflow.com/questions/44915511/stripe-elements-google-web-font-not-working
+    https://stackoverflow.com/questions/46863072/do-not-collect-zip-code-with-stripe
