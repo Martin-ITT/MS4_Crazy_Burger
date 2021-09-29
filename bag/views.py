@@ -84,24 +84,28 @@ def add_to_bag(request, item_id):
             # exactly same product added
             if product_data in bag[item_id]['product_data'].keys():
                 bag[item_id]['product_data'][product_data] += quantity
-                messages.success(request, f'{product.name} - {size} - quantity updated.')
+                messages.success(
+                    request, f'{product.name} - {size} - quantity updated.')
             # same id products but different attributes
             else:
                 bag[item_id]['product_data'][product_data] = quantity
                 bag[item_id]['price'][product_data] = price
-                messages.success(request, f'{product.name} - {size} added to bag.')
+                messages.success(
+                    request, f'{product.name} - {size} added to bag.')
         # product added for a first time
         else:
             bag[item_id] = {
                 'product_data': {product_data: quantity},
                 'price': {product_data: price},
                 }
-            messages.success(request, f'{product.name} - {size} added to bag.')
+            messages.success(
+                request, f'{product.name} - {size} added to bag.')
     # products with no extra options
     else:
         if item_id in list(bag.keys()):
             bag[item_id] += quantity
-            messages.success(request, f'{product.name} - quantity updated.')
+            messages.success(
+                request, f'{product.name} - quantity updated.')
         else:
             bag[item_id] = quantity
             messages.success(request, f'{product.name} added to bag.')
@@ -128,21 +132,25 @@ def adjust_bag(request, item_id):
             # product id already in a bag
             if quantity > 0:
                 bag[item_id]['product_data'][size] = quantity
-                messages.success(request, f'{product.name} - {size.split("_")[0]} - quantity updated.')
+                messages.success(
+                    request, f'{product.name} - {size.split("_")[0]} - quantity updated.')
                 # problem to get product_data from request.POST
             else:
                 del bag[item_id]['product_data'][size]
-                messages.success(request, f'{product.name} - {size.split("_")[0]} - removed from bag.')
+                messages.success(
+                    request, f'{product.name} - {size.split("_")[0]} - removed from bag.')
                 if not bag[item_id]['product_data']:
                     bag.pop(item_id)
         # products with no extra options
         else:
             if quantity > 0:
                 bag[item_id] = quantity
-                messages.success(request, f'{product.name} - quantity updated.')
+                messages.success(
+                    request, f'{product.name} - quantity updated.')
             else:
                 bag.pop(item_id)
-                messages.success(request, f'{product.name} - removed from bag.')
+                messages.success(
+                    request, f'{product.name} - removed from bag.')
             
     else:
         print("quantity out of range!")
@@ -150,6 +158,7 @@ def adjust_bag(request, item_id):
 
     request.session['bag'] = bag
     return redirect(reverse("view_bag"))
+
 
 def remove_from_bag(request, item_id):
     # Remove product from the shopping bag
@@ -166,12 +175,14 @@ def remove_from_bag(request, item_id):
 
         if size:
             del bag[item_id]['product_data'][size]
-            messages.success(request, f'{product.name} - {size.split("_")[0]} - removed from bag.')
+            messages.success(
+                request, f'{product.name} - {size.split("_")[0]} - removed from bag.')
             if not bag[item_id]['product_data']:
                 bag.pop(item_id)
         else:
             bag.pop(item_id)
-            messages.success(request, f'{product.name} - removed from bag.')
+            messages.success(
+                request, f'{product.name} - removed from bag.')
 
         request.session['bag'] = bag
         return HttpResponse(status=200)
