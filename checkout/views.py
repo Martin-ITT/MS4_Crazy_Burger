@@ -46,6 +46,8 @@ def checkout(request):
                             quantity=item_data,
                             product_price=product.price,
                         )
+                        print("toto je produkt price tuto")
+                        print(product.price)
                         order_line_item.save()
                     else:
                         for size, quantity in item_data['product_data'].items():

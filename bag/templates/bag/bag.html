@@ -113,7 +113,7 @@
                                 </tr>
                             {% endfor %}
                             <tr>
-                                <td colspan="5" class="pt-5 text-end">
+                                <td colspan="5" class="pt-5 text-right">
                                     <h4 class="mt-4"><strong>Bag Total: €{{ total|floatformat:2 }}</strong></h4>
                                     {% if free_delivery_delta > 0 %}
                                         <p class="mb-1 text-danger">
@@ -123,7 +123,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td colspan="5" class="text-end">
+                                <td colspan="5" class="text-right">
                                     <a href="{% url 'products' %}" class="btn btn-outline-black rounded-0 btn-lg">
                                         <span class="icon">
                                             <i class="fas fa-chevron-left"></i>
