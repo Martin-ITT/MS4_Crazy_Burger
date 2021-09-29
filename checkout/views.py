@@ -30,6 +30,7 @@ def checkout(request):
             'street_address1': request.POST['street_address1'],
             'street_address2': request.POST['street_address2'],
             'county': request.POST['county'],
+            'comment': request.POST['comment'],
         }
         order_form = OrderForm(form_data)
         if order_form.is_valid():
@@ -50,8 +51,6 @@ def checkout(request):
                         for size, quantity in item_data['product_data'].items():
                             # id_selector = size
                             price = float(item_data['price'][size])
-                            print("toto je price do checkoutu")
-                            print(price)
                             data = size.split('_')
                             size = data[0]
                             drink = 'None'

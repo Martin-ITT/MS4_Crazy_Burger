@@ -21,7 +21,6 @@
                 <hr>
             </div>
         </div>
-
         <div class="row">
             <div class="col">
                 {% if bag_items %}
@@ -38,8 +37,6 @@
                             </thead>
 
                             {% for item in bag_items %}
-                            <p>product key</p>
-                            <p>{{ item.id_selector }}</p>
                                 <tr>
                                     {% if item.product.image %}
                                     <td class="p-3 w-25">
@@ -106,22 +103,14 @@
                                                 </div>
                                             </div>
                                         </form>
-                                        <a class="update-link text-secondary"><small>Update</small></a>
-                                        <p>id: {{ item.item_id }}, prod_size: {{item.id_selector }}</p>
-                                        <a class="remove-item text-danger float-end" id="remove_{{ item.item_id }}" data-product_size="{{ item.id_selector }}"><small>Remove</small></a>
+                                        <a class="update-link text-success"><small>Update</small></a>
+                                        <a class="remove-item text-danger float-right" id="remove_{{ item.item_id }}" data-product_size="{{ item.id_selector }}"><small>Remove</small></a>
                                     </td>
                                     <td class="py-3">
                                         <p class="my-0">€{{ item.subtotal|floatformat:2 }}</p>
                                     </td>
                                 </tr>
                             {% endfor %}
-                            <p>bag items</p>
-                                {{ bag_items }}
-                                <br>
-                                
-                                <br>
-                                <p>request session bag</p>
-                                {{ request.session.bag }}
                             <tr>
                                 <td colspan="5" class="pt-5 text-end">
                                     <h4 class="mt-4"><strong>Bag Total: €{{ total|floatformat:2 }}</strong></h4>
