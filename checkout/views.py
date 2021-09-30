@@ -1,5 +1,6 @@
 from django.shortcuts import (
-    render, redirect, reverse, get_object_or_404)
+    render, redirect, reverse, get_object_or_404, HttpResponse)
+from django.views.decorators.http import require_POST
 from django.contrib import messages
 from django.conf import settings
 
@@ -9,8 +10,25 @@ from products.models import Product
 from bag.contexts import bag_contents
 
 import stripe
+import json
 
 # Create your views here.
+
+
+@require_POST
+def cache_checkout_data(request):
+    try:
+        pid = request.POST.get('client_secret').split('_secret')[0]
+        stripe.api_key = settings.STRIPE_SECRET_KEY
+        stripe.PaymentIntent.modify(pid, metadata={
+            'bag': json.dumps(request.session.get('bag', {})),
+            'save_info': request.POST.get('save_info'),
+            'comment': request.POST.get('comment'),
+            'username': request.user,
+        })
+        return HttpResponse(status=200)
+    except Exception as e:
+        messages.error(request, 'Your payment did not go through. Please try again later.')
 
 
 def checkout(request):
@@ -46,8 +64,6 @@ def checkout(request):
                             quantity=item_data,
                             product_price=product.price,
                         )
-                        print("toto je produkt price tuto")
-                        print(product.price)
                         order_line_item.save()
                     else:
                         for size, quantity in item_data['product_data'].items():
