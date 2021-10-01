@@ -1,15 +1,18 @@
-<div class="toast my-toast" role="alert" aria-live="assertive" aria-atomic="true">
+<div class="toast my-toast" role="alert" data-autohide="true">
   
     <div class="toast-header bg-success">
         <strong class="me-auto text-white">Success!</strong>
-        <small class="text-white">...</small>
+        <button type="button" class="ml-2 mb-1 close text-dark" data-dismiss="toast" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <small class="text-white float-right">...</small>
     </div>
     <div class="toast-body bg-white">
         <div class="row">
             <div class="col">
                 {{ message }}
                 <hr class="mt-1 mb-3">
-            </div> 
+            </div>
         </div>
         {% if total %}
         <p class="logo-font bg-white text-black py-1">Your Bag ({{ product_count }})</p>

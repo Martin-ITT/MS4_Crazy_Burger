@@ -78,3 +78,4 @@ Logo was created using Adobe Spark logo maker
     https://stackoverflow.com/questions/44915511/stripe-elements-google-web-font-not-working
     https://stackoverflow.com/questions/46863072/do-not-collect-zip-code-with-stripe
     https://fontawesome.com/v5.15/how-to-use/on-the-web/styling/animating-icons
+    https://stackoverflow.com/questions/56028939/bootstrap-toast-remains-on-top-invisible

@@ -155,22 +155,23 @@
   
     {% block postload_js %}
     <script type="text/javascript">
-    /*
-    var option = {
-        delay : 2000,
-    }
-    
-    var toastElList = [].slice.call(document.querySelectorAll('.toast'))
-    var toastList = toastElList.map(function (toastEl) {
-        return new bootstrap.Toast(toastEl, option)
-    })
-    $('.toast').toast('show');
-    */
     var options = {
         delay : 5000,
     }
     $('.toast').toast(options);
     $('.toast').toast('show');
+    // stackowerflow toast remains on top invisible
+    $(".toast").on("hidden.bs.toast", function() {
+            $(this).addClass("d-none");
+        })
+/*
+    $(".toast").change(function () {
+    var el = $(this);
+    window.setTimeout(function() {
+        el.toggleClass('light').toggleClass('dark');
+    }, 2000);
+});
+*/
 
     </script>
     {% endblock %}

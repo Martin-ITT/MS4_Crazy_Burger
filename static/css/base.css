@@ -121,6 +121,7 @@ a.category-badge > span.badge:hover {
 }
 
 .bag-notification-wrapper {
+    max-width: 20rem;
     height: 150px;
     overflow-x: hidden;
     overflow-y: auto;
