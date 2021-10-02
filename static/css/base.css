@@ -117,11 +117,11 @@ a.category-badge > span.badge:hover {
 }
 
 .my-toast {
+    max-width: 20rem;
     overflow: visible;
 }
 
 .bag-notification-wrapper {
-    max-width: 20rem;
     height: 150px;
     overflow-x: hidden;
     overflow-y: auto;
