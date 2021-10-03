@@ -117,7 +117,7 @@ a.category-badge > span.badge:hover {
 }
 
 .my-toast {
-    width: 25rem;
+    max-width: 25rem;
     overflow: visible;
 }
 
