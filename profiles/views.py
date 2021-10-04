@@ -15,10 +15,11 @@ def profile(request):
     if request.method == 'POST':
         form = UserProfileForm(request.POST, instance=profile)
         user = request.user
-        if request.POST['first_name'] != '':
+        # save user_name
+        if 'first_name' in request.POST:
             user.first_name = request.POST['first_name']
             user.save()
-        if request.POST['last_name'] != '':
+        if 'last_name' in request.POST:
             user.last_name = request.POST['last_name']
             user.save()
         if form.is_valid():

@@ -1,0 +1,1 @@
+Crazy Burger - order: {{ order.order_number }} confirmed!

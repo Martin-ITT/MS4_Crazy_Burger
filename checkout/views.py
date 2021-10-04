@@ -31,6 +31,7 @@ def cache_checkout_data(request):
         return HttpResponse(status=200)
     except Exception as e:
         messages.error(request, 'Your payment did not go through. Please try again later.')
+        return HttpResponse(content=e, status=400)
 
 
 def checkout(request):
@@ -52,6 +53,7 @@ def checkout(request):
             'county': request.POST['county'],
             'comment': request.POST['comment'],
         }
+
         order_form = OrderForm(form_data)
         if order_form.is_valid():
             order = order_form.save(commit=False)
@@ -165,7 +167,7 @@ def checkout_success(request, order_number):
         profile = UserProfile.objects.get(user=request.user)
         order.user_profile = profile
         order.save()
-
+        # add order to order history
         if save_info:
             profile_data = {
                 'default_phone_number': order.phone_number,
