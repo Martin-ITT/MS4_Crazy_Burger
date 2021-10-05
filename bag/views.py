@@ -122,7 +122,7 @@ def adjust_bag(request, item_id):
     if 'product_size' in request.POST:
         size = request.POST['product_size']
         quantity = int(request.POST['quantity'])
-       
+
     bag = request.session.get('bag', {})
     product = get_object_or_404(Product, pk=item_id)
 
@@ -151,7 +151,7 @@ def adjust_bag(request, item_id):
                 bag.pop(item_id)
                 messages.success(
                     request, f'{product.name} - removed from bag.')
-            
+
     else:
         print("quantity out of range!")
         messages.error(request, 'Quantity out of range!')
@@ -162,7 +162,7 @@ def adjust_bag(request, item_id):
 
 def remove_from_bag(request, item_id):
     # Remove product from the shopping bag
-    
+
     try:
         product = get_object_or_404(Product, pk=item_id)
         size = None

@@ -1,4 +1,4 @@
-Dear {{ order.full_name }},
+Dear {{ order.full_name | title }},
 
 This is a confirmation email from Crazy Burger. Your order details are below:
 
@@ -7,8 +7,11 @@ Order Date: {{ order.date }}
 
 Items:
 
-{% for item in order_line_items %}
-    {{ item }}
+{% for item in order.lineitems.all %}
+    {{ item.quantity }} x {{ item.product }} @ {{ item.product_price }}
+        {% if item.product_size %} - {{ item.product_size }} {% endif %}
+        {% if item.product_drink != 'None' %} - {{ item.product_drink }} {% endif %}
+        {% if item.product_toppings != 'None' %} - {{ item.product_toppings }} {% endif %}
 {% endfor %}
 
 Order Total (inc delivery): {{ order.grand_total }}

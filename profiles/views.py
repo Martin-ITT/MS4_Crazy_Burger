@@ -1,5 +1,8 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import (
+    render, get_object_or_404, HttpResponse, redirect, reverse)
 from django.contrib import messages
+from ast import literal_eval
+
 # from django.contrib.auth.models import User
 
 from .models import UserProfile
@@ -46,7 +49,8 @@ def order_history(request, order_number):
         f'This is a past confirmation for order number {order_number}. '
         'A confirmation email was sent on the order date.'
     ))
-
+    print("toto je history order:")
+    print(order.original_bag)
     template = 'checkout/checkout_success.html'
     context = {
         'order': order,
@@ -54,3 +58,23 @@ def order_history(request, order_number):
     }
 
     return render(request, template, context)
+
+
+def repeat_order(request, order_number):
+    order = get_object_or_404(Order, order_number=order_number)
+
+    messages.success(request, (
+        f'Your shopping bag was updated with items from order: {order_number}.'
+    ))
+    if order.original_bag:
+        try:
+            bag = literal_eval(order.original_bag)
+            print(bag)
+            print(type(bag))
+            request.session['bag'] = bag
+
+        except Exception as e:
+            messages.error(request, 'There was a problem updating your bag. Please try again later.')
+            return HttpResponse(content=e, status=400)
+
+    return redirect(reverse("view_bag"))
