@@ -19,6 +19,7 @@ Order Total (inc delivery): {{ order.grand_total }}
 Delivery address:
 {{ order.street_address1 }}
 {{ order.town_or_city }}
+{{ order.postcode }}
 {{ order.country }}
 
 You can send us your feedback at {{ contact_email }}.
