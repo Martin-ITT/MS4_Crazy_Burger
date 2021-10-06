@@ -1,0 +1,1 @@
+web: gunicorn crazy_burger.wsgi:application

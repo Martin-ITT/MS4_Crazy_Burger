@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-sl=^_bz)gkul^i=&_n8)t$(n#93@($#(%t!r8=%#&6!4q4xwcf
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['crazyburger.herokuapp.com', 'localhost']
 
 
 # Application definition
@@ -122,12 +122,17 @@ WSGI_APPLICATION = 'crazy_burger.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+if 'DATABASE_URL' in os.environ:
+    DATABASES = { 
+        'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
 
 
 # Password validation
