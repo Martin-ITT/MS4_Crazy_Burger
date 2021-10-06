@@ -1,6 +1,7 @@
 from django.shortcuts import (
     render, get_object_or_404, HttpResponse, redirect, reverse)
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from ast import literal_eval
 
 # from django.contrib.auth.models import User
@@ -11,6 +12,7 @@ from .forms import UserProfileForm
 from checkout.models import Order
 
 
+@login_required
 def profile(request):
     """ Display the user's profile. """
     profile = get_object_or_404(UserProfile, user=request.user)
@@ -53,8 +55,6 @@ def order_history(request, order_number):
         f'This is a past confirmation for order number {order_number}. '
         'A confirmation email was sent on the order date.'
     ))
-    print("toto je history order:")
-    print(order.original_bag)
     template = 'checkout/checkout_success.html'
     context = {
         'order': order,
@@ -67,19 +67,21 @@ def order_history(request, order_number):
 def repeat_order(request, order_number):
     order = get_object_or_404(Order, order_number=order_number)
 
-    messages.success(request, (
-        f'Your shopping bag was updated with items from order: {order_number}.'
-    ))
     if order.original_bag:
         try:
             bag = literal_eval(order.original_bag)
             print(bag)
             print(type(bag))
             request.session['bag'] = bag
-
+            messages.success(request, (
+                f'Your shopping bag was updated with items from order: {order_number}.'
+                ))
         except Exception as e:
             messages.error(
-                request, 'There was a problem updating your bag. Please try again later.')
+                request, 'Error. There was a problem updating your bag. Some products might not be available.')
             return HttpResponse(content=e, status=400)
+    else:
+        messages.error(
+                request, 'There was a problem updating your bag. Some products might not be available.')
 
     return redirect(reverse("view_bag"))
