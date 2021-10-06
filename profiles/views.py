@@ -27,11 +27,15 @@ def profile(request):
             user.save()
         if form.is_valid():
             form.save()
-            messages.success(request, 'Profile successfully updated!')
+            messages.success(
+                request, 'Profile successfully updated!')
+        else:
+            messages.error(
+                request, 'Update failed. Please ensure the form is valid.')
+    else:
+        form = UserProfileForm(instance=profile)
 
-    form = UserProfileForm(instance=profile)
     orders = profile.orders.all()
-
     template = 'profiles/profile.html'
     context = {
         'form': form,
@@ -74,7 +78,8 @@ def repeat_order(request, order_number):
             request.session['bag'] = bag
 
         except Exception as e:
-            messages.error(request, 'There was a problem updating your bag. Please try again later.')
+            messages.error(
+                request, 'There was a problem updating your bag. Please try again later.')
             return HttpResponse(content=e, status=400)
 
     return redirect(reverse("view_bag"))

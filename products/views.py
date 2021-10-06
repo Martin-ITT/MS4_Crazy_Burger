@@ -3,7 +3,9 @@ from django.shortcuts import (
 from django.contrib import messages
 from django.db.models import Q
 from django.db.models.functions import Lower
+
 from .models import *
+from .forms import ProductForm
 
 # Create your views here.
 
@@ -29,7 +31,7 @@ def all_products(request):
                 products = products.annotate(lower_name=Lower('name'))
             if sortkey == 'category':
                 sortkey = 'category__name'
-                
+
             if 'direction' in request.GET:
                 direction = request.GET['direction']
                 if direction == 'desc':
@@ -49,7 +51,7 @@ def all_products(request):
             category_deserts = ['ice_cream', 'crepes', 'milkshakes', 'other_deserts']
             category_other = ['new_products', 'specials', 'drinks', 'extras']
             display_categories = request.GET['category'].split(',')
-            
+
             if category in category_food:
                 display_categories = category_food
                 display_categories = Category.objects.filter(name__in=display_categories)
@@ -114,3 +116,63 @@ def product_detail(request, product_id):
     }
 
     return render(request, 'products/product_detail.html', context)
+
+
+def add_product(request):
+    # add product to the store
+
+    if request.method == 'POST':
+        form = ProductForm(request.POST, request.FILES)
+        if form.is_valid():
+            product = form.save()
+            messages.success(
+                request, 'Successfully added product!'
+            )
+            return redirect(reverse('product_detail', args=[product.id]))
+        else:
+            messages.error(
+                request, 'Failed to add product. Please ensure the form is valid.')
+    else:
+        form = ProductForm()
+
+    template = 'products/add_product.html'
+    context = {
+        'form': form,
+        }
+
+    return render(request, template, context)
+
+
+def edit_product(request, product_id):
+    # edit existing product
+
+    product = get_object_or_404(Product, pk=product_id)
+    if request.method == 'POST':
+        form = ProductForm(request.POST, request.FILES, instance=product)
+        if form.is_valid():
+            form.save()
+            messages.success(request, f'{product.name} updated successfully!')
+            return redirect(reverse('product_detail', args=[product.id]))
+        else:
+            messages.error(request, 'Failed to update product. Please check if form is valid!')
+    else:
+        form = ProductForm(instance=product)
+        messages.info(request, f'Editing {product.name}')
+
+    template = 'products/edit_product.html'
+    context = {
+        'form': form,
+        'product': product,
+        }
+
+    return render(request, template, context)
+
+
+def delete_product(request, product_id):
+    # delete product from store
+
+    product = get_object_or_404(Product, pk=product_id)
+    product.delete()
+    messages.success(request, 'Product successfully deleted!')
+
+    return redirect(reverse('products'))
