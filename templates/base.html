@@ -128,7 +128,9 @@
         </div>            
     </div>
   </header>
-  
+  <!-- back to top btn -->
+  <button onclick="topFunction()" id="back-to-top-btn" title="Go to top">▲</button>
+
     {% if messages %}
     <div class="message-container">
         {% for message in messages %}
@@ -154,6 +156,7 @@
     {% endblock %}
   
     {% block postload_js %}
+    <!-- toast messages -->
     <script type="text/javascript">
     var options = {
         delay : 5000,
@@ -164,17 +167,28 @@
     $(".toast").on("hidden.bs.toast", function() {
             $(this).addClass("d-none");
         })
-/*
-    $(".toast").change(function () {
-    var el = $(this);
-    window.setTimeout(function() {
-        el.toggleClass('light').toggleClass('dark');
-    }, 2000);
-});
-*/
-
     </script>
+
+    <!-- back to top btn -->
+    <script type="text/javascript">
+     
+        var mybutton = document.getElementById("back-to-top-btn");
+        window.onscroll = function() {scrollFunction();};
+    
+        function scrollFunction() {
+        if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+            mybutton.style.display = "block";
+        } else {
+            mybutton.style.display = "none";
+            }
+        }
+    
+        function topFunction() {
+        document.body.scrollTop = 0; // For Safari
+        document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+        }
+        </script>
     {% endblock %}
-  
+    
   </body>
 </html>
