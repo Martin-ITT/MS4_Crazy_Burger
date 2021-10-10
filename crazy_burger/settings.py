@@ -124,6 +124,9 @@ if 'DATABASE_URL' in os.environ:
 else:
     SITE_ID = 7
 
+# fb login
+ACCOUNT_DEFAULT_HTTP_PROTOCOL = 'https'
+
 # log emails to the console
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
