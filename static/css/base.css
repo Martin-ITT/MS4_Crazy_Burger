@@ -321,3 +321,10 @@ a.category-badge > span.badge:hover {
         max-width: 15rem;
     }
 }
+/* social btn on mobile screen */
+@media (max-width: 991px) {
+    .btn-social.btn-lg {
+        width: 75% !important;
+        margin-left: 12.5% !important;
+    }
+}
