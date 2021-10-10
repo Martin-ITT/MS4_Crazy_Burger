@@ -123,9 +123,9 @@ SOCIALACCOUNT_PROVIDERS = {
 }
 
 if 'DEVELOPMENT' in os.environ:
-    SITE_ID = 6
+    SITE_ID = 5
 else:
-    SITE_ID = 1
+    SITE_ID = 2
 
 # log emails to the console
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
