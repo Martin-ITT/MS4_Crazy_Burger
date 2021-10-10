@@ -120,7 +120,7 @@ SOCIALACCOUNT_PROVIDERS = {
 }
 
 if 'DATABASE_URL' in os.environ:
-    SITE_ID = 1
+    SITE_ID = 2
 else:
     SITE_ID = 7
 
