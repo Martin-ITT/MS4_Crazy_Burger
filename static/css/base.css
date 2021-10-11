@@ -20,6 +20,9 @@ body {
     width: 1.5rem;
 }
 
+h2 {
+    font-size: 1.5rem;
+}
 .logo-font {
     text-transform: uppercase;
 }
@@ -239,9 +242,6 @@ a.category-badge > span.badge:hover {
   }
 }
 
-
-
-
 /* fixed top navbar only on medium and up */
 @media (min-width: 992px) {
     .fixed-top-desktop-only {
@@ -264,7 +264,7 @@ a.category-badge > span.badge:hover {
     }
 
     body {
-        height: calc(100vh - 116px);
+        height: calc(100vh - 117px);
         font-size: 1rem;
     }
 
@@ -275,7 +275,11 @@ a.category-badge > span.badge:hover {
     
     .nav-link {
         padding: 1rem .15rem 0rem .15rem;
-        font-size: .7rem;
+        font-size: .9rem;
+    }
+
+    .dropdown-item {
+        font-size: .9rem;
     }
 
     .nav-link i.fa-lg {
@@ -314,15 +318,19 @@ a.category-badge > span.badge:hover {
         font-size: .75rem;
     }
 
+    .font-small a {
+    font-weight: 300;
+    font-size: .8rem;
+    }
+
     .increment-qty, .decrement-qty {
         padding: .25rem .5rem !important;
     }
+
     .my-toast {
         max-width: 15rem;
     }
-}
-/* social btn on mobile screen */
-@media (max-width: 991px) {
+
     .btn-social.btn-lg {
         width: 75% !important;
         margin-left: 12.5% !important;

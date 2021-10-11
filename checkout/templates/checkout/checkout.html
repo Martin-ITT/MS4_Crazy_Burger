@@ -117,25 +117,22 @@
                             </label>
                         {% endif %}
                     </div>
-                    <fieldset class="px-3">
+                    <fieldset class="px-lg-3">
                         <legend class="fieldset-label col-12 small text-black px-2 w-auto">Payment</legend>
-                        <!-- A Stripe card element will go here -->
-                        <div class="mb-3 col-8 w-100" id="card-element"></div>
-
-                        <!-- Used to display form errors -->
+                        <div class="mb-3 col-12 col-md-8 w-100" id="card-element"></div>
                         <div class="mb-3 text-danger" id="card-errors" role="alert"></div>
                         <!-- Pass the client secret to extract payment intent id -->
                         <input type="hidden" value="{{ client_secret }}" name="client_secret">
 
                     </fieldset>
                     <div class="submit-button text-right mt-5 mb-2">                    
-						<a href="{% url 'view_bag' %}" class="btn btn-outline-black rounded-0">
+						<a href="{% url 'view_bag' %}" class="btn btn-outline-black rounded-0 mt-1">
 							<span class="icon">
 								<i class="fas fa-chevron-left"></i>
 							</span>
 							<span class="font-weight-bold">Adjust Bag</span>
 						</a>
-						<button id="submit-button" class="btn btn-black rounded-0">
+						<button id="submit-button" class="btn btn-black rounded-0 mt-1">
 							<span class="font-weight-bold">Complete Order</span>
 							<span class="icon">
 								<i class="fas fa-lock"></i>
