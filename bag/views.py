@@ -20,8 +20,6 @@ def add_to_bag(request, item_id):
     quantity = int(request.POST.get('quantity'))
     redirect_url = request.POST.get('redirect_url')
     bag = request.session.get('bag', {})
-    print("\n POST request from form to add_to_bag:")
-    print(request.POST)
     size = None
     drink = ""
 
@@ -39,8 +37,6 @@ def add_to_bag(request, item_id):
         if 'opt-topping' in request.POST:
             toppings = "-".join(request.POST.getlist('opt-topping'))
         num_of_toppings = len(request.POST.getlist('opt-topping'))
-        print("\n num of toppingd")
-        print(num_of_toppings)
         # toppings displayed only if selected
         if num_of_toppings > 0:
             product_data = size + "_pizza_" + toppings + "_" + item_id
@@ -133,12 +129,14 @@ def adjust_bag(request, item_id):
             if quantity > 0:
                 bag[item_id]['product_data'][size] = quantity
                 messages.success(
-                    request, f'{product.name} - {size.split("_")[0]} - quantity updated.')
+                    request, f'{product.name} - {size.split("_")[0]} \
+                        - quantity updated.')
                 # problem to get product_data from request.POST
             else:
                 del bag[item_id]['product_data'][size]
                 messages.success(
-                    request, f'{product.name} - {size.split("_")[0]} - removed from bag.')
+                    request, f'{product.name} - {size.split("_")[0]} \
+                        - removed from bag.')
                 if not bag[item_id]['product_data']:
                     bag.pop(item_id)
         # products with no extra options
@@ -176,7 +174,8 @@ def remove_from_bag(request, item_id):
         if size:
             del bag[item_id]['product_data'][size]
             messages.success(
-                request, f'{product.name} - {size.split("_")[0]} - removed from bag.')
+                request, f'{product.name} - {size.split("_")[0]} \
+                    - removed from bag.')
             if not bag[item_id]['product_data']:
                 bag.pop(item_id)
         else:

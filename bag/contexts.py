@@ -27,13 +27,22 @@ def bag_contents(request):
         else:
             product = get_object_or_404(Product, pk=item_id)
             for size, quantity in item_data['product_data'].items():
+                """
+                size / id_selectort = size + 'meal' + drink + item_id
+                id_selectort is used as id for qty buttons
+                """
                 id_selector = size
-                price = float(item_data['price'][size])
+                # set price from item_data according to product size
+                price = Decimal(item_data['price'][size])
+                # convert size into list with product attributes
                 data = size.split('_')
+                # reset variable size to product size only
                 size = data[0]
+                # get drink from data
                 drink = 'None'
                 if size == 'meal':
                     drink = data[2]
+                # get toppings from data
                 toppings = 'None'
                 if data[1] == 'pizza':
                     toppings = data[2].split('-')
@@ -73,5 +82,5 @@ def bag_contents(request):
         'free_delivery_threshold': settings.FREE_DELIVERY_THRESHOLD,
         'grand_total': grand_total,
     }
-   
+
     return context
