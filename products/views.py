@@ -13,9 +13,10 @@ from .forms import ProductForm
 
 
 def all_products(request):
-    """ A view to return the all products including sorting and
-    search queries """
-
+    """
+    A view to return the all products including sorting and
+    search queries
+    """
     products = Product.objects.all()
     query = None
     categories = None
@@ -23,7 +24,7 @@ def all_products(request):
     direction = None
     display_categories = None
 
-    """ sorting by"""
+    # sorting by
     if request.GET:
         if 'sort' in request.GET:
             sortkey = request.GET['sort']
@@ -41,31 +42,38 @@ def all_products(request):
 
             products = products.order_by(sortkey)
 
-        """ selecting categories in navbar """
-
+        # selecting categories in navbar
         if 'category' in request.GET:
             category = request.GET['category']
             if ',' in request.GET['category']:
                 category = category.split(",")[0]
                 print(category)
-            category_food = ['burgers', 'pizza', 'loaded_chips', 'salads', 'creoles', 'kebabs', 'wraps', 'baguettes', 'china_town', 'fish', 'sides']
-            category_meals_deals = ['kids_meals', 'daily_offers', 'deals', 'meals']
-            category_deserts = ['ice_cream', 'crepes', 'milkshakes', 'other_deserts']
+            category_food = ['burgers', 'pizza', 'loaded_chips', 'salads',
+                             'creoles', 'kebabs', 'wraps', 'baguettes',
+                             'china_town', 'fish', 'sides']
+            category_meals_deals = ['kids_meals', 'daily_offers',
+                                    'deals', 'meals']
+            category_deserts = ['ice_cream', 'crepes', 'milkshakes',
+                                'other_deserts']
             category_other = ['new_products', 'specials', 'drinks', 'extras']
             display_categories = request.GET['category'].split(',')
 
             if category in category_food:
                 display_categories = category_food
-                display_categories = Category.objects.filter(name__in=display_categories)
+                display_categories = Category.objects.filter(
+                    name__in=display_categories)
             if category in category_meals_deals:
                 display_categories = category_meals_deals
-                display_categories = Category.objects.filter(name__in=display_categories)
+                display_categories = Category.objects.filter(
+                    name__in=display_categories)
             if category in category_deserts:
                 display_categories = category_deserts
-                display_categories = Category.objects.filter(name__in=display_categories)
+                display_categories = Category.objects.filter(
+                    name__in=display_categories)
             if category in category_other:
                 display_categories = category_other
-                display_categories = Category.objects.filter(name__in=display_categories)
+                display_categories = Category.objects.filter(
+                    name__in=display_categories)
 
         if 'category' in request.GET:
             category = request.GET['category']
@@ -139,7 +147,8 @@ def add_product(request):
             return redirect(reverse('product_detail', args=[product.id]))
         else:
             messages.error(
-                request, 'Failed to add product. Please ensure the form is valid.')
+                request, 'Failed to add product. Please ensure the form \
+                    is valid.')
     else:
         form = ProductForm()
 
@@ -168,7 +177,8 @@ def edit_product(request, product_id):
             messages.success(request, f'{product.name} updated successfully!')
             return redirect(reverse('product_detail', args=[product.id]))
         else:
-            messages.error(request, 'Failed to update product. Please check if form is valid!')
+            messages.error(request, 'Failed to update product. Please check \
+                if form is valid!')
     else:
         form = ProductForm(instance=product)
         messages.info(request, f'Editing {product.name}')

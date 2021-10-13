@@ -1,5 +1,5 @@
 
-![Crazy Burger](https:/pics-link-here "Crazy Burger")
+![Crazy Burger](https://github.com/Martin-ITT/MS4_Crazy_Burger/blob/main/media/amIresponsive.JPG "Crazy Burger")
 
 <span id="index"></span>
 ## Index
@@ -22,7 +22,7 @@
 --------------------------------------
 
 Fourth Milestone project is focused on creating larger and complex web applications using Django to demonstrate the ability of solving real-world scenarios. Django is powerfull framework for rapid web development emphasizing reusability and use of its components. It contains number of applications, including authentication system, CRUD operations support and administrative interface including security features. 
-Most of my professional life I've spent in restaurants so I decided to create web application for take-away restaurant Crazy-Burger. This website will provide all convenient features as browse menu, place an order with payment, create user account for easier ordering or contact restaurant over contact form.
+Most of my professional life I've spent in restaurants so I decided to create web application for fictive take-away restaurant Crazy-Burger. This website will provide all convenient features as browse menu, place an order with payment, create user account or even use social media login to see or repeat previous orders.
 
 <span id="ux"></span>
 # 1. UX 👌
@@ -37,32 +37,69 @@ The goal is to promote local restaurant by creating professional website. Online
 | User story | As a/an | I want to be able to | So that I can |
 | -----------: | :--------| :--------------------| :------------|
 | Viewing and navigation |
-| 1 | Shopper | Browse the menu | Compare and order food I want |
+| 1 | Shopper | Browse the menu | Select and order food I want |
 | 2 | Shopper | View meal details | See the image, price, alergens |
 | 3 | Shopper | See special offers | Get better price and save money |
-| 4 | Shopper | See my previous orders | Order easily and control the budget |
+| 4 | Shopper | Responsive design | Order on a mobile device |
 | 5 | Shopper | Add special note to order | State important information about my order |
+| 6 | Shopper | See shopping bag updates | See the total without accessing the shopping bag |
 | Registration and User accounts |
-| 6 | User | Create an account | Control my deteils |
-| 7 | User | Login or logout | Use account funcionality | *social media account
-| 8 | User | Recover forgotten password | Get my account back |
-| 9 | User | See my personalized profile | See history of my orders and store payment info |
+| 7 | User | Create an account | Control my deteils |
+| 8 | User | Login or logout | Use account funcionality | 
+| 9 | User | Recover forgotten password | Get my account back |
+| 10 | User | See my personalized profile | See history of my orders and store payment info |
+| 11 | User | Use Social Media account | Login easily with my other accounts |
 | Sorting and Searching |
-| 10 | Shopper | Sort the list of available meals | Identify newest, cheapest |
-| 11 | Shopper | Sort a special offers | Identify newest and cheapest products in certain category |
-| 12 | Shopper | Search for a meal by name | Find particular food |
+| 12 | Shopper | Sort the list of available meals | Identify cheapest products |
+| 13 | Shopper | Search for a meal by name | Find particular food |
 | Purchasing and Checkout |
-| 13 | Shopper | Easily add meal to basket | So I only add what I want |
-| 14 | Shopper | Edit basket | Change items if I change my mind |
-| 15 | Shopper | Have my details pre-filled | Easily checkout |
-| 16 | Shopper | Get an email confirmation for my order | To double check my order |
+| 14 | Shopper | Easily add meal to basket | Buy that product |
+| 15 | Shopper | Edit / remove from basket | Change or remove items if I change my mind |
+| 16 | Shopper | Have my details pre-filled | Easily checkout |
+| 17 | Shopper | Get an email confirmation for my order | To double check my order |
 | Administration |
-| 16 | Owner | Receive feedback | See if customer is not happy |
-| 17 | Owner | Add new meal | Inform the customer about new meal |
-| 18 | Owner | Edit meal | Change the price when needed |
-| 19 | Owner | Delete meal | When product discontinued |
+| 18 | Owner | Add new meal | Inform the customer about new meal |
+| 19 | Owner | Edit meal | Change the price when needed |
+| 20 | Owner | Delete meal | When product discontinued |
+| 21 | Owner | Have order database | See every order once payment is confirmed
 
 ## 1.2 Scope 
+
+Based on the User Stories following features and components will be required in order to implement Minimum Viable Product so our app can be deployed.
+
+- Welcoming home page with nice hero image
+- Structured menu for navigation with extra links for each category
+- Responsive design
+- Page to display and sort all/selected category products
+- Page to display all product details and option to buy this product 
+- Search bar to avail users to find products
+- Notification system with shopping bag updates
+- Page to display shopping bag and update it
+- Checkout page and a checkout confirmation
+- Email checkout confirmation
+- Register and login page with social media access
+- Forgotten password feature
+- User profile page and page to display previous order details
+- Repeat previous order funcionality
+- Page to add and edit products, remove product function
+- Database and Media storage
+
+## 1.3 Structure
+
+Project will contain both the Front-End and Back-End code.
+
+Front-End code will be written in HTML5 and styled with CSS3 and Bootstrap4 framework.
+JavaScript will enable some Front-End dynamic features and some communication between Front-End and Back-End, e.g. submitting forms.
+
+For progressive development Back-End code will be written in Python3 using Django framework. Django supports SQLite database where our data will be stored. In developments media and static files will be stored locally. For deployed version on Heroku our database will be handled by Postgress and static and media files will be stored with AWS S3.
+
+## 1.4 Skeleton
+
+Our project will be divided into few smaller applications: home, products, bag, checkout, and profiles. Home application will be rendering our main home page. Products application 
+
+
+
+To implement the ease of use principles our navbar will be consinstent on all rendered pages. It will only change on smaller devices to achieve responsive design. From home page user can navigate to search and browse the products, register or login. On products page 
 
 
 Image were edited using Gimp

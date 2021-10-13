@@ -77,8 +77,8 @@ def checkout(request):
                         )
                         order_line_item.save()
                     else:
-                        for size, quantity in item_data['product_data'].items():
-                            # id_selector = size
+                        for size, quantity in \
+                                item_data['product_data'].items():
                             price = float(item_data['price'][size])
                             data = size.split('_')
                             size = data[0]

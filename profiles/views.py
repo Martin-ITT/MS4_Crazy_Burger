@@ -68,8 +68,6 @@ def repeat_order(request, order_number):
     if order.original_bag:
         try:
             bag = literal_eval(order.original_bag)
-            print(bag)
-            print(type(bag))
             request.session['bag'] = bag
             messages.success(request, (
                 f'Your shopping bag was updated with items \
