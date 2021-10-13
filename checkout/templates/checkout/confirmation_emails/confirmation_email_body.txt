@@ -22,7 +22,7 @@ Delivery address:
 {{ order.postcode }}
 {{ order.country }}
 
-You can send us your feedback at {{ contact_email }}.
+You can send us your feedback at feedback@crazyburger.com
 
 Thank you for your order!
 
