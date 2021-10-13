@@ -1,4 +1,4 @@
-
+# Crazy Burger
 ![Crazy Burger](https://github.com/Martin-ITT/MS4_Crazy_Burger/blob/main/media/amIresponsive.JPG "Crazy Burger")
 
 <span id="index"></span>
@@ -14,7 +14,6 @@
 
 
 <span id="project"></span>
-# Crazy Burger
 ## [Code Institute](https://codeinstitute.net)
 ### Full Stack Web Development Course
 ### Milestone Project 4 - Full Stack Framework with Django
@@ -57,11 +56,12 @@ The goal is to promote local restaurant by creating professional website. Online
 | 15 | Shopper | Edit / remove from basket | Change or remove items if I change my mind |
 | 16 | Shopper | Have my details pre-filled | Easily checkout |
 | 17 | Shopper | Get an email confirmation for my order | To double check my order |
+| 18 | Shopper | Pay for my order | Make cashless payment |
 | Administration |
-| 18 | Owner | Add new meal | Inform the customer about new meal |
-| 19 | Owner | Edit meal | Change the price when needed |
-| 20 | Owner | Delete meal | When product discontinued |
-| 21 | Owner | Have order database | See every order once payment is confirmed
+| 19 | Owner | Add new meal | Inform the customer about new meal |
+| 20 | Owner | Edit meal | Change the price when needed |
+| 21 | Owner | Delete meal | When product discontinued |
+| 22 | Owner | Have order database | See every order once payment is confirmed
 
 ## 1.2 Scope 
 
@@ -95,10 +95,145 @@ For progressive development Back-End code will be written in Python3 using Djang
 
 ## 1.4 Skeleton
 
-Our project will be divided into few smaller applications: home, products, bag, checkout, and profiles. Home application will be rendering our main home page. Products application 
+Our project will be divided into few smaller applications: home, products, bag, checkout, and profiles.
+
+Home application will be rendering our main home page.
+
+Products application will contain data models for product Categories, Allergens, Toppings and Products themselves. It will be responsible for rendering the products and the product details pages and it will also serve admin to manage products in the store through Add Product and Edit Product views.
+
+Bag application will provide access to the shopping bag with the funcionality of adding and removing products and also updating their quantity. Communication between the Bag and the other applications will be implemented using context processor.
+
+Once all desired products will be in the bag a Checkout app will take user to the Checkout page to complete the order and make a payment following another page to confirm the order. To create an order from our shopping bag items we will need to attach these as line items using OrderLineItem model and attach it to an Order model.
+
+Profiles application will manage basic information about our users and will allow them to see the Order History and to Repeat those orders with one click. User data will be stored using UserProfile model.
+
+For Login, Logout, Registration and Password Management we will use Django package Allauth. This can also handle Login with Social Media accounts which is one of the requirements for this project.
+
+## Data Modeling
+
+### Products
+#### Category
+
+| Key        |Type of   | Info                          |
+| ---------- |:--------| :-----------------------------|
+| _id | Object ID | SQLite ID |
+| name  | CharField  | Generic category name - no white spaces |
+| friendly_name  | CharField  | User readable category name |
+
+#### Allergen
+
+| Key        |Type of   | Info                          |
+| ---------- |:--------| :-----------------------------|
+| _id | Object ID | SQLite ID |
+| name  | CharField  | Name of the allergen |
+
+#### Topping
+
+| Key        |Type of   | Info                          |
+| ---------- |:--------| :-----------------------------|
+| _id | Object ID | SQLite ID |
+| name  | CharField | Name of the topping |
+
+#### Product
+
+| Key        |Type of   | Info                          |
+| ---------- |:--------| :-----------------------------|
+| _id | Object ID | SQLite ID |
+| category | ForeignKey | Key reffering to the _id of the Product model |
+| name | CharField | Name of the product |
+| description | CharField | Product description |
+| allergens | ManyToManyField | Relationship between Allergen model and products |
+| price | DecimalField | Product price |
+| size | CharField | Displayed size at the basic price, e.g. 0.33l, 1/4lb, small... |
+| has_sizes | BooleanField | Enables same product to be displayed with different sizes and prices |
+| price_medium | DecimalField | Product price if available as medium size |
+| size_medium | CharField | Displayed size at the medium price, e.g. 0.5l, medium... |
+| price_large | DecimalField | Product price if available as large size |
+| size_large | CharField | Displayed size at the large price, e.g. 1.5l, large... |
+| price_meal | DecimalField | Price if product is available as a meal deal with a drink |
+| has_toppings | BooleanField | Identifies products where toppings can amended. At the time of deploymnet this is only available with pizza category. |
+| toppings | ManyToManyField | Relationship between Topping model and products |
+| image | ImageField | A field to upload the product image. This is stored in media folder |
+
+### Checkout
+#### Order
+
+| Key        |Type of   | Info                          |
+| ---------- |:--------| :-----------------------------|
+| _id | Object ID | SQLite ID |
+| order_number | CharField | Self-generated unique order number |
+| user_profile | ForeignKey | Key reffering to the _id in UserProfile model |
+| full_name | CharField | Customer's full name |
+| email | EmailField | Customer's email address |
+| phone_number | CharField | Customer's phone number |
+| country | CountryField | Customer's address - coutry |
+| postcode | CharField | Customer's address - post code |
+| town_or_city | CharField | Customer's address - town or city |
+| street_address1 | CharField | Customer's address - line 1 |
+| street_address2 | CharField | Customer's address - line 2 |
+| county | CharField | Customer's address - county |
+| date | DateTimeField | Self generated field with time and date when order was created |
+| comment | TextField | Customer's comment to specify any special requests |
+| delivery_cost | DecimalField | Cost of delivery charge |
+| order_total | DecimalField | Total amount for all product items in order |
+| grand_total | DecimalField | Total amount of delivery cost and products in order |
+| original_bag | TextField | Copy of a text string which represents items in shopping bag stored in session storage in a browser |
+| stripe_pid | CharField | Stripe payment ID for actual order |
+
+#### OrderLineItem
+
+| Key        |Type of   | Info                          |
+| ---------- |:--------| :-----------------------------|
+| _id | Object ID | SQLite ID |
+| order | ForeignKey | Key reffering to the _id in Order model |
+| product | ForeignKey | Key reffering to the _id in Product model |
+| product_size | CharField | Size of the product ordered, e.g. small, large |
+| product_drink | CharField | Drink ordered with the product if any |
+| product_toppings | CharField | Toppings ordered with the product if any |
+| product_price | DecimalField | Price of the product and related size as ordered |
+| quantity | IntegerField | Quantity of product in order |
+| lineitem_total | DecimalField | Total price for product-size. Quantity * product_price |
+
+### Profiles
+#### UserProfile
+| Key        |Type of   | Info                          |
+| ---------- |:--------| :-----------------------------|
+| _id | Object ID | SQLite ID |
+| user | ForeignKey | Key reffering to the _id in User model in django.contrib.auth |
+| first_name | CharField | User's first name |
+| last_name | CharField | User's last name |
+| default_phone_number | CharField | User's phone number |
+| default_street_address1 | CharField | User's address line 1 |
+| default_street_address2 | CharField | User's address line 2 |
+| default_town_or_city | CharField | User's address - town |
+| default_county | CharField | User's address - county |
+| default_postcode | CharField | User's address - postcode |
+| default_country | CharField | User's address - country |
+
+### django.contrib.auth
+#### User
+
+| Key        |Type of   | Info                          |
+| ---------- |:--------| :-----------------------------|
+| _id | Object ID | SQLite ID |
+| username | CharField | Chosen username at registration |
+| first_name | CharField | User's first name |
+| last_name | CharField | User's last name |
+| email | EmailField | User's email address |
+| password | CharField | User's password |
+| groups | ManyToManyField | Relationship to Group model |
+| user_permissions | ManyToManyField | Relationship to Permission model |
+| is_staff | Boolean | Admin site access |
+| is_active | Boolean | Recomended to set False instead of deleting user |
+| is_superuser | Boolean | All permissions without explicitly assigning them |
+| last_login | DateTimeField | Last user's login |
+| date_joined | DateTimeField | A datetime when the account was created |
+
+![Data Diagram](https://github.com/Martin-ITT/MS4_Crazy_Burger/blob/main/media/dataDiagram.JPG "Data Diagram")
 
 
 
+ v
 To implement the ease of use principles our navbar will be consinstent on all rendered pages. It will only change on smaller devices to achieve responsive design. From home page user can navigate to search and browse the products, register or login. On products page 
 
 
