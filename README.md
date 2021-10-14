@@ -1,6 +1,14 @@
 # Crazy Burger
 ![Crazy Burger](https://github.com/Martin-ITT/MS4_Crazy_Burger/blob/main/media/amIresponsive.JPG "Crazy Burger")
 
+<span id="project"></span>
+## [Code Institute](https://codeinstitute.net)
+### Full Stack Web Development Course
+#### Milestone Project 4 - Full Stack Framework with Django
+
+[live website here](https://crazyburger.herokuapp.com/)
+--------------------------------------
+
 <span id="index"></span>
 ## Index
  <a href="#project">Project Idea 💁</a>
@@ -10,15 +18,6 @@
 1. <a href="#testing">Testing 🔧</a>
 1. <a href="#deployment">Deployment 💥</a>
 1. <a href="#credits">Credits 👋</a>
-
-
-
-<span id="project"></span>
-## [Code Institute](https://codeinstitute.net)
-### Full Stack Web Development Course
-### Milestone Project 4 - Full Stack Framework with Django
-[live website here](https://crazyburger.herokuapp.com/)
---------------------------------------
 
 Fourth Milestone project is focused on creating larger and complex web applications using Django to demonstrate the ability of solving real-world scenarios. Django is powerfull framework for rapid web development emphasizing reusability and use of its components. It contains number of applications, including authentication system, CRUD operations support and administrative interface including security features. 
 Most of my professional life I've spent in restaurants so I decided to create web application for fictive take-away restaurant Crazy-Burger. This website will provide all convenient features as browse menu, place an order with payment, create user account or even use social media login to see or repeat previous orders.
@@ -230,6 +229,16 @@ For Login, Logout, Registration and Password Management we will use Django packa
 | date_joined | DateTimeField | A datetime when the account was created |
 
 ![Data Diagram](https://github.com/Martin-ITT/MS4_Crazy_Burger/blob/main/media/dataDiagram.JPG "Data Diagram")
+
+## 1.5 Surface
+
+For the design a Bootsrap 4 components and systems will be used. Bootstrap navbar will provide us with a dropdown menu and other navigation links. The main page will display an engaging hero image so the user will proceed to browse the menu. This will be enhanced with appropriate font and a color scheme. 
+
+![Font Style - Titillium](https://github.com/Martin-ITT/MS4_Crazy_Burger/blob/main/media/font.JPG "Font Style")
+
+![Color Scheme](https://github.com/Martin-ITT/MS4_Crazy_Burger/blob/main/media/adobecolor.JPG "Color Scheme")
+
+![Wireframes](https://github.com/Martin-ITT/MS4_Crazy_Burger/blob/main/media/wireframes.JPG "Wireframes")
 
 
 
