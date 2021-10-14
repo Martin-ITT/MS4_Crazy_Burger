@@ -39,21 +39,21 @@ class Product(models.Model):
     allergens = models.ManyToManyField(Allergen, blank=True)
     price = models.DecimalField(max_digits=6, decimal_places=2)
     # size to be displayed on pages - small, 0.33l...
-    size = models.CharField(max_length=10, blank=True)
+    size = models.CharField(max_length=10)
     # price for medium and large if available for some categories
     has_sizes = models.BooleanField(default=False)
     price_medium = models.DecimalField(
         max_digits=6, decimal_places=2, default=0.0)
-    size_medium = models.CharField(max_length=10, blank=True)
+    size_medium = models.CharField(max_length=10)
     price_large = models.DecimalField(
         max_digits=6, decimal_places=2, default=0.0)
-    size_large = models.CharField(max_length=10, blank=True)
+    size_large = models.CharField(max_length=10)
     # to upgrade to a meal option
     price_meal = models.DecimalField(
         max_digits=6, decimal_places=2, default=0.0)
     has_toppings = models.BooleanField(default=False)
-    # price_topping_medium = models.DecimalField(max_digits=6, decimal_places=2, default=0.0)
-    # price_topping_large = models.DecimalField(max_digits=6, decimal_places=2, default=0.0)
+    price_topping_medium = models.DecimalField(max_digits=6, decimal_places=2, default=0.0)
+    price_topping_large = models.DecimalField(max_digits=6, decimal_places=2, default=0.0)
     toppings = models.ManyToManyField(Topping, blank=True)
     # rating = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True)
     # image_url = models.URLField(max_length=1024, null=True, blank=True)

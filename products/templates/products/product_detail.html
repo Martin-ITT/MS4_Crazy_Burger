@@ -47,13 +47,6 @@
                             </a>
                         </p>
                     {% endif %}
-                    {% if product.rating %}
-                        <small class="text-muted"><i class="fas fa-star mr-1"></i>{{ product.rating }} / 5</small>
-                    {% else %}
-                    <!--
-                        <small class="text-muted">No Rating</small>
-                    -->
-                    {% endif %}
                     {% if request.user.is_superuser %}
                     <small class="text-muted">
                         <a href="{% url 'edit_product' product.id %}">Edit Product</a>
@@ -79,7 +72,7 @@
                                 <input type="hidden" id="id-price-meal" name="id-price-meal" value="{{ product.price_meal }}">
                                 <!-- make it meal -->
                                 {% if product.price_meal %}
-                                {% if product.category.name != 'kids_meals' %}
+                                
                                 <p class="mt-3">
                                     <div id="size-selection">
                                         <div class="form-check">
@@ -94,7 +87,7 @@
                                         </div>
                                     </div>
                                 </p>
-                                {% endif %}
+                    
                                 <!-- select drink with meal -->
                                 <div id="drink-selection" class="d-none">
                                     <div class="form-check-inline">
@@ -231,6 +224,7 @@
             </div>
         </div>
     </div>
+
     <script type="text/javascript">
         $(document).ready(function() {
             var category = $('#category-name').val();
@@ -322,6 +316,7 @@
 
         })
         </script>
+        
 {% endblock %}
 
 {% block postload_js %}

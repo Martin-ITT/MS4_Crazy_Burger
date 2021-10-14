@@ -233,17 +233,42 @@ For Login, Logout, Registration and Password Management we will use Django packa
 ## 1.5 Surface
 
 For the design a Bootsrap 4 components and systems will be used. Bootstrap navbar will provide us with a dropdown menu and other navigation links. The main page will display an engaging hero image so the user will proceed to browse the menu. This will be enhanced with appropriate font and a color scheme. 
+Pages shall remain responsive on keep the same format on all screen sizes. The only differnence on small and medium screens the header element will transfer to dropdown menu with a hamburger button and a search icon and products and product details will be stacked underneath each other.
 
+#### Font Style - Titillium
+Google fonts
 ![Font Style - Titillium](https://github.com/Martin-ITT/MS4_Crazy_Burger/blob/main/media/font.JPG "Font Style")
 
+#### Color Scheme
+Adobe color tools
 ![Color Scheme](https://github.com/Martin-ITT/MS4_Crazy_Burger/blob/main/media/adobecolor.JPG "Color Scheme")
 
+#### Wireframes
+Balsamiq wireframes
 ![Wireframes](https://github.com/Martin-ITT/MS4_Crazy_Burger/blob/main/media/wireframes.JPG "Wireframes")
 
+# 2. Features 🎮
+
+Home page
+
+The home page is divided into two elements, the header and the hero image. To implement the ease of use principles our header and navbar remains the same on the other pages too. The top left corner displayes CrazyBurger logo which also acts as a home button. There is a search bar in the middle section, and underneath is a dropdown menu divided into few product categories. Top right section contains user icon which provides links to register, login, logout, and also an admin link when admin is currently logged in to add products. Just next to it there is a shopping bag icon which brings users to their shopping bag.
+The header and the main section is divided with a banner reminding users of a free delivery option if they spend more than €50.
+To attract the visitors the home page contains a large juicy burger and a red button Order Now next to it which directs user to the all food product page. 
+
+Products page
+
+The product page layout remains the same for all products or when a category is selected or the user is searching for particular product. There is a product image, product name and a category displayed. Product image and category serve as a links and will bring user to the product details page or will return category products respectively. For quicker navigation there are extra buttons which group some categories into larger chunks, e.g food products, meals and offers, desserts and other items in the store. Products can be sorted alphabeticaly, by price or category in both directions. 
+
+Product details page
+
+This page is split into two parts, left and right. There is a large product image on the left. The right side provides product name, product price, category, description and allergens. Some products can be bought as a meal deal with a drink or in a larger size. For these products Django will render an extra block underneath allergens and JavaScript will take care of the front-end dynamic part and will adjust the price or add extra text to the product name.
 
 
- v
-To implement the ease of use principles our navbar will be consinstent on all rendered pages. It will only change on smaller devices to achieve responsive design. From home page user can navigate to search and browse the products, register or login. On products page 
+
+
+Admin add product
+ If the product price_meal is larger than zero Django will render the page with option to upgrade product to a meal with a drink. JavaScript will open the drink section, change the displayed price and add text to the product name. Some other products can be purchased as a small or large. Both prices 
+On mobile screens the image part is stacked above the product details section.
 
 
 Image were edited using Gimp
