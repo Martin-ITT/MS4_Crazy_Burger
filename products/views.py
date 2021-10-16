@@ -42,7 +42,7 @@ def all_products(request):
 
             products = products.order_by(sortkey)
 
-        # selecting categories in navbar
+        # selecting categories in menu and submenu
         if 'category' in request.GET:
             category = request.GET['category']
             if ',' in request.GET['category']:

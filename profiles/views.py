@@ -18,14 +18,14 @@ def profile(request):
     if request.method == 'POST':
         form = UserProfileForm(request.POST, instance=profile)
         user = request.user
-        # save user_name
-        if 'first_name' in request.POST:
-            user.first_name = request.POST['first_name']
-            user.save()
-        if 'last_name' in request.POST:
-            user.last_name = request.POST['last_name']
-            user.save()
         if form.is_valid():
+            # save user_name
+            if 'first_name' in request.POST:
+                user.first_name = request.POST['first_name']
+                user.save()
+            if 'last_name' in request.POST:
+                user.last_name = request.POST['last_name']
+                user.save()
             form.save()
             messages.success(
                 request, 'Profile successfully updated!')
@@ -62,6 +62,7 @@ def order_history(request, order_number):
     return render(request, template, context)
 
 
+@login_required
 def repeat_order(request, order_number):
     order = get_object_or_404(Order, order_number=order_number)
 

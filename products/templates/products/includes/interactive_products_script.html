@@ -1,0 +1,88 @@
+<script type="text/javascript">
+$(document).ready(function() {
+    var category = $('#category-name').val();
+    /* make it meal logic*/
+    $('input[name=is-meal]').change(function(){
+    var value = $('input[name=is-meal]:checked').val();
+    if (value == "meal") {
+        $('div#drink-selection').removeClass("d-none");
+        var price_meal = parseFloat($('#id-price-meal').val()).toFixed(2);
+        $('#product-price').text("€" + price_meal);
+        $('#id-product-name').append('<span id="add-meal-text"> meal with chips</span>');
+    } else {
+        $('div#drink-selection').addClass("d-none");
+        var price = parseFloat($('#id-price').val()).toFixed(2);
+        $('#product-price').text("€" + price);
+        $('#add-meal-text').remove();
+    }
+});
+/* size option for small-large only logic */
+$('input[name=opt-size]').change(function(){
+var value = $('input[name=opt-size]:checked').val();
+if (value == "large") {
+    var price_large = parseFloat($('#id-price-large').val()).toFixed(2);
+    $('#product-price').text("€" + price_large);
+    /* $('#id-product-name').append('<span id="add-size-text"> - large</span>');*/
+} else if (value == "medium") {
+    var price_medium = parseFloat($('#id-price-medium').val()).toFixed(2);
+    $('#product-price').text("€" + price_medium);
+    /* $('#id-product-name').append('<span id="add-size-text"> - large</span>'); */
+} else {
+    var price = parseFloat($('#id-price').val()).toFixed(2);
+    $('#product-price').text("€" + price);
+    /*$('#add-size-text').remove();*/
+}
+});
+
+/* size option for pizzas logic */
+/* margherita not available 9" - adjust text after product name on document ready */
+if ($('#small-pizza-checked').is(':checked') && category == "pizza") {
+    $('#id-product-name').append('<span id="add-size-text"> 9"</span>');
+} else if ($('#medium-pizza-checked').is(':checked') && category == "pizza") {
+    $('#id-product-name').append('<span id="add-size-text"> 12"</span>');
+    var price_medium = parseFloat($('#id-price').val()).toFixed(2);
+    $('#charge-extra-topping').append('<span id="charge-topping"> €1.00"</span>');
+}
+
+/* change price on size and/or topping selection */
+$('input[name=opt-pizza]').change(function(){
+update_pizza_price_and_size();
+});
+
+$('input[name=opt-topping]').click(function(){
+update_pizza_price_and_size();
+});
+
+function update_pizza_price_and_size() {
+    var value = $('input[name=opt-pizza]:checked').val();
+    var boxes_checked = $('input[name=opt-topping]:checked').length;
+    var price_large = $('#id-price-large').val();
+    var price_medium = parseFloat($('#id-price-medium').val());
+    var price_small = parseFloat($('#id-price').val());
+
+    /* pizza is margherita with topping(s) */
+    if (value == "large") {
+        var large = parseFloat(price_large);
+        var result = ((boxes_checked * 1.5) + large).toFixed(2);
+        var size = 14;
+        $('#charge-topping').remove();
+        $('#charge-extra-topping').append('<span id="charge-topping"> €1.50"</span>');
+    } else if (value == "medium") {
+        var medium = parseFloat(price_medium);
+        var result = (boxes_checked + medium).toFixed(2);
+        var size = 12;
+        $('#charge-topping').remove();
+        $('#charge-extra-topping').append('<span id="charge-topping"> €1.00"</span>');
+    } else {
+        var small = parseFloat(price_small);
+        var result = (boxes_checked + small).toFixed(2);
+        var size = 9;
+    }
+
+    $('#product-price').text("€" + result);
+    $('#add-size-text').remove();
+    $('#id-product-name').append('<span id="add-size-text"> ' + size +'"</span>');
+};
+
+})
+</script>

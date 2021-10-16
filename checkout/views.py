@@ -32,8 +32,6 @@ def cache_checkout_data(request):
     except Exception as e:
         messages.error(request, 'Your payment did not go through. \
             Please call the restaurant for assistance.')
-        print("error:")
-        print(e)
         return HttpResponse(content=e, status=400)
 
 
@@ -124,6 +122,7 @@ def checkout(request):
         total = current_bag['grand_total']
         stripe_total = round(total * 100)
         stripe.api_key = stripe_secret_key
+        # create payment intent
         intent = stripe.PaymentIntent.create(
             amount=stripe_total,
             currency=settings.STRIPE_CURRENCY,
