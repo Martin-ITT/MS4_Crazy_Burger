@@ -6,7 +6,7 @@
 ### Full Stack Web Development Course
 #### Milestone Project 4 - Full Stack Framework with Django
 
-[live website here](https://crazyburger.herokuapp.com/)
+#### [live website here](https://crazyburger.herokuapp.com/)
 --------------------------------------
 
 <span id="index"></span>
@@ -750,9 +750,12 @@ A big thank belongs to:
 - Again, to my family
 - Again, to Adegbenga Adeye - my mentor, for guidance and feedback on this project
 - Code Institute team
-- Hero image was downloaded from PxHere
+- Chris Zielinski - ckz8780 for Butique Ado tutorial
 
 ## 6.1 References
+
+- Butique Ado
+    https://github.com/ckz8780/boutique_ado_v1
 
 - Hero image by Adrian Dorobantu was sourced from Pexels:
     https://www.pexels.com/photo/cheeseburger-on-table-2089717/
@@ -763,18 +766,16 @@ A big thank belongs to:
 - Logo was created using Adobe Spark logo maker
     https://www.adobe.com/express/create/logo
 
+- Changing Stripe font
+    https://stackoverflow.com/questions/44915511/
 
-
-
-
-
-
-
-
-
-    https://stackoverflow.com/questions/44915511/stripe-elements-google-web-font-not-working
+- Remove ZIP/Postal code from Stripe element
     https://stackoverflow.com/questions/46863072/do-not-collect-zip-code-with-stripe
-    https://fontawesome.com/v5.15/how-to-use/on-the-web/styling/animating-icons
-    https://stackoverflow.com/questions/56028939/bootstrap-toast-remains-on-top-invisible
 
-[Product pictures](https://github.com/Martin-ITT/MS4_Crazy_Burger/blob/main/pictures.md)
+- Payment animation
+    https://fontawesome.com/v5.15/how-to-use/on-the-web/styling/animating-icons
+
+- Bootstrap toast remains on top (invisible)
+    https://stackoverflow.com/questions/56028939/
+
+- [Product pictures](https://github.com/Martin-ITT/MS4_Crazy_Burger/blob/main/pictures.md)
