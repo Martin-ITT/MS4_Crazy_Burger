@@ -394,7 +394,7 @@ Views.py contains index function which is rendering home page. Index.html extend
 
 Models
 
-Category, Allergen, Topping and Product models contain __str__(self) method which returns a category name when str() funcion is called on object. Category model also contains get_friendly_name() function which returns friendly name of object.
+Category, Allergen, Topping and Product models contain `__str__(self)` method which returns a category name when str() funcion is called on object. Category model also contains get_friendly_name() function which returns friendly name of object.
 
 Forms
 
@@ -434,13 +434,13 @@ Function _generate_order_number() generates random string as order number every 
 
 Function update_total() updates total amount when a line item is updated or deleted. The total and also the delivery charge is updated correctly. This also proves that signals in signals.py works correctly.
 
-Function __str__() returns the order number when str() is called on the object.
+Function `__str__()` returns the order number when str() is called on the object.
 
 OrdeLineItem
 
 Function save() updates the lineitem_total when called on object.
 
-Function __str__() returns product name with appropriate order number.
+Function `__str__()` returns product name with appropriate order number.
 
 Views
 
