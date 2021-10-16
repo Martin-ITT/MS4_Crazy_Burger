@@ -748,8 +748,8 @@ else:
 
 A big thank belongs to:
 
-- Again, to my family
-- Again, to Adegbenga Adeye - my mentor, for guidance and feedback on this project
+- Again, again, again to my family
+- And again, to Adegbenga Adeye - my mentor, for guidance and feedback on this project
 - Code Institute team
 - Chris Zielinski - ckz8780 for Butique Ado tutorial
 
